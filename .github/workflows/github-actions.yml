@@ -1,0 +1,32 @@
+name: Triggered Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: travelpalservice-deployment-group
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy-code:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout AdsMngService Repo repository
+        uses: actions/checkout@v2
+        with:
+          repository: congpham234/AdsMngService
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Code
+        run: npm run build              
