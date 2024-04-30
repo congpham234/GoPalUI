@@ -6,7 +6,7 @@ on:
       - main
 
 concurrency:
-  group: travelpalservice-deployment-group
+  group: travelpalui-deployment-group
   cancel-in-progress: false
 
 jobs:
@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout AdsMngService Repo repository
+      - name: Checkout TravelPalUI Repo repository
         uses: actions/checkout@v2
         with:
-          repository: congpham234/AdsMngService
+          repository: congpham234/TravelPalUI
           ref: main
 
       - name: Set up Node.js
