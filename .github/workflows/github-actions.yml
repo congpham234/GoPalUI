@@ -6,7 +6,7 @@ on:
       - main
 
 concurrency:
-  group: travelpalui-deployment-group
+  group: gopal-deployment-group
   cancel-in-progress: false
 
 jobs:
@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout TravelPalUI Repo repository
+      - name: Checkout GoPalUI Repo repository
         uses: actions/checkout@v2
         with:
-          repository: congpham234/TravelPalUI
+          repository: congpham234/GoPalUI
           ref: main
 
       - name: Set up Node.js
