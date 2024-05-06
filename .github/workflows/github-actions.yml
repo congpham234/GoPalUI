@@ -41,9 +41,9 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           status: ${{ contains(needs.*.result, 'failure') && 'Failure' || 'Success' }}
-          title: "${{ github.event.head_commit.message }}"
+          title: "GoPalUI - ${{ github.event.head_commit.message }}"
           image: ${{ contains(needs.*.result, 'failure') && secrets.EMBED_IMAGE_FAILURE || secrets.EMBED_IMAGE_SUCCESS }}
           color: ${{ contains(needs.*.result, 'failure') && '0xFF0000' || '0x00FF00' }}
-          url: "https://github.com/congpham234/GoPalBackendCDK"
+          url: "https://github.com/congpham234/GoPalUI"
           username: ${{ contains(needs.*.result, 'failure') && 'Ur MOM' || 'Kilala' }}
           avatar_url: ${{ contains(needs.*.result, 'failure') && secrets.EMBED_IMAGE_FAILURE || secrets.EMBED_IMAGE_SUCCESS }}
