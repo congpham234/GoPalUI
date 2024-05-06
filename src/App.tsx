@@ -1,13 +1,20 @@
-import React from 'react';
-import './App.css';
-import LandingPage from './pages/LandingPage';
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// const LandingPage = lazy(() => import('./pages/LandingPage'))
-
+// Lazy-loaded components
+const LandingPage = lazy(() => import('./pages/LandingPage'));
+const ItineraryPage = lazy(() => import('./pages/ItineraryPage'));
 
 function App() {
   return (
-    <LandingPage />
+    <Router>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/itinerary" element={<ItineraryPage />} />
+        </Routes>
+      </Suspense>
+    </Router>
   );
 }
 
