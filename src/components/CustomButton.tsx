@@ -2,7 +2,7 @@
 import React, { ReactNode } from 'react';
 import Button, { ButtonProps } from '@mui/material/Button';
 import Typography from './Typography';
-import Color from './Color';
+import {Color} from './Color';
 
 interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
     children: ReactNode;
