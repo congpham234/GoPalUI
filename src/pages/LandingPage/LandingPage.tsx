@@ -1,42 +1,39 @@
 import React from 'react';
+import { useState } from 'react';
 import CustomButton from '../../components/CustomButton';
-import CustomSelect from '../../components/CustomSelect';
-import Typography from '../../components/Typography';
-import { FiSearch } from "react-icons/fi";
-import CustomInputWithIcon from '../../components/CustomInput';
+import { fetchProtectedResource, signIn } from '../../configs/backendcogitoclient';
 // Import other components as needed
 
 
 function LandingPage() {
+    const [signInStatus, setSignInStatus] = useState('');
+
+    const handleSignIn = async () => {
+        try {
+            const idToken = await signIn();
+            if (idToken) {
+                setSignInStatus('Sign in successful.');
+                // Optionally proceed with token for further actions
+            } else {
+                setSignInStatus('Authentication failed: No ID token received.');
+            }
+            const result = await fetchProtectedResource(idToken!);
+            console.log("CONG IS HERE")
+            console.log(result);
+        } catch (error) {
+            console.error(error);
+            setSignInStatus('Sign in failed. See console for more details.');
+        }
+    };
+
     return (
-      <div className="LandingPage">
-        <div>
-            <Typography variant='h1'> Heading 1 </Typography>
-            <Typography variant='h2'> Heading 2 </Typography>
-            <Typography variant='h3'> Heading 3 </Typography>
-            <Typography variant='headline'> Headline </Typography>
-            <Typography variant='bodyBold'> Body Bold </Typography>
-            <Typography variant='body'> Body </Typography>
-            <Typography variant='subHead'> Subhead </Typography>
-            <Typography variant='caption'> Caption </Typography>
+        <div className="LandingPage">
+            <div>
+                <CustomButton customVariant='primary' onClick={() => handleSignIn()}>Sign In</CustomButton>
+                {signInStatus && <p>{signInStatus}</p>}
+            </div>
         </div>
-        
-        <div>
-            <CustomSelect icon={<FiSearch />}/>
-        </div>
-        <div>
-          <CustomInputWithIcon 
-            icon={FiSearch}
-            label=''
-            placeholder='Search by city or town'/>
-        </div>
-        <div>
-            <CustomButton customVariant='primary'>Primary Button</CustomButton>
-            <CustomButton customVariant='secondary'>Secondary Button</CustomButton>
-            <CustomButton customVariant='tertiary'>Tertiary Button</CustomButton>
-        </div>
-      </div>
     );
-  }
-  
-  export default LandingPage;
+}
+
+export default LandingPage;
