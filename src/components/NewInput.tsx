@@ -1,14 +1,14 @@
 import React from 'react';
-import { DatePicker } from 'antd';
+import { FiSearch } from "react-icons/fi";
+import { Input } from 'antd';
 import { Color } from './Color';
-import './CustomDateRangePicker.scss';
+import './NewInput.scss';
 
-const { RangePicker } = DatePicker;
-
-const NewDateRangePicker = () => {
-  return (
-    <RangePicker
-        size= 'large'
+const NewInput: React.FC = () => (
+  <>
+    <Input
+        placeholder="Search by city or town" 
+        prefix={<FiSearch />} 
         style={{
             height: '3rem',
             width: '100%',
@@ -17,9 +17,9 @@ const NewDateRangePicker = () => {
             fontFamily: 'Poppins', 
             fontSize: '1rem',
             color: Color.dark,
-      }}
+        }}
     />
-  );
-};
+  </>
+);
 
-export default NewDateRangePicker;
+export default NewInput;

@@ -1,13 +1,14 @@
 import React from 'react';
 import CustomButton from '../../components/CustomButton';
 import Typography from '../../components/Typography';
-import { FiSearch } from "react-icons/fi";
+// import { FiSearch } from "react-icons/fi";
 import { FiMenu } from "react-icons/fi";
-import CustomInputWithIcon from '../../components/CustomInput';
+// import CustomInputWithIcon from '../../components/CustomInput';
 import styles from './LandingPage.module.scss';
-import CustomSelect from '../../components/CustomSelect';
-import SingleDatePicker from '../../components/CustomDateRangePicker';
-
+// import CustomSelect from '../../components/CustomSelect';
+import NewDateRangePicker from '../../components/CustomDateRangePicker';
+import NewInput from '../../components/NewInput';
+import NewSelect from '../../components/NewSelect';
 // Import other components as needed
 
 
@@ -25,11 +26,14 @@ function LandingPage() {
         </div>
         <div className={styles.InputSection}>
           <div><Typography variant='h3'>Start planning your trip</Typography></div>
-          <div><CustomInputWithIcon icon={FiSearch} label=''placeholder='Search by city or town'/></div>
-          <div><SingleDatePicker /></div>
-          <div><CustomSelect/></div>
+          {/* <div><CustomInputWithIcon icon={FiSearch} label=''placeholder='Search by city or town'/></div> */}
+          <div><NewInput/></div>
+          <div><NewDateRangePicker /></div>
+          <div><NewSelect/></div>
+          {/* <div><CustomSelect/></div> */}
           <div><CustomButton customVariant='primary'>Plan My Trip</CustomButton></div>
         </div>
+        
       </div>
     );
   }

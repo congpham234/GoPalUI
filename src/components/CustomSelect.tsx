@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Box, FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { FiUser } from "react-icons/fi";
+import { Color } from './Color';
 
 const MySelectComponent = () => {
   const [selectedValue, setSelectedValue] = useState<string>('1 person');
@@ -27,9 +28,9 @@ const MySelectComponent = () => {
         sx={{
           height: '3rem',
           borderRadius: '3rem',
-          borderColor: '#aaa',
-          '&:focus': {
-            borderColor: '#007bff',
+          "& .MuiSelect-select": {
+            color: Color.dark,
+            fontFamily: "Poppins",
           },
         }}
       >

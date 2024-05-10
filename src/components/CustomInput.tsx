@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
+import { Color } from './Color';
 
 interface CustomInputProps {
   icon: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -20,10 +21,16 @@ const CustomInputWithIcon: React.FC<CustomInputProps> = ({ icon: IconComponent, 
             <IconComponent />
           </InputAdornment>
         ),
-        sx: {
+      }}
+      sx={{
+        "& .MuiOutlinedInput-root": {
+          color: Color.dark,
+          fontFamily: "Poppins",
           height: '3rem',
           borderRadius: '3rem',
-          width: '100%',
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: Color.border,
+          },
         },
       }}
       {...rest}
