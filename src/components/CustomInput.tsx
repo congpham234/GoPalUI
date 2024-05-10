@@ -12,7 +12,8 @@ const CustomInputWithIcon: React.FC<CustomInputProps> = ({ icon: IconComponent, 
   return (
     <TextField
       variant="outlined"
-      label={label} // Pass the label prop here
+      label={label}
+      fullWidth
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
@@ -22,6 +23,7 @@ const CustomInputWithIcon: React.FC<CustomInputProps> = ({ icon: IconComponent, 
         sx: {
           height: '3rem',
           borderRadius: '3rem',
+          width: '100%',
         },
       }}
       {...rest}

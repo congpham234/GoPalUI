@@ -1,37 +1,31 @@
 import React, { useState } from 'react';
-import Select, { SelectChangeEvent } from '@mui/material/Select'; // Import SelectChangeEvent
-import MenuItem from '@mui/material/MenuItem';
-import { FormControl, InputAdornment } from '@mui/material';
-import Typography from './Typography';
+import { Box, FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { FiUser } from "react-icons/fi";
 
-interface CustomSelectProps {
-  icon: React.ReactNode;
-}
-
-const CustomSelect: React.FC<CustomSelectProps> = ({ icon }) => {
-  const [selectedValue, setSelectedValue] = useState<string>('');
-
+const MySelectComponent = () => {
+  const [selectedValue, setSelectedValue] = useState<string>('1 person');
 
   const handleChange = (event: SelectChangeEvent<string>) => {
     setSelectedValue(event.target.value);
   };
 
   return (
-    <FormControl>
+    <FormControl fullWidth>
       <Select
         value={selectedValue}
         onChange={handleChange}
         displayEmpty
-        inputProps={{
-          startadornment: (
-            <InputAdornment position="end">
-              {icon}
-            </InputAdornment>
-          ),
+        renderValue={(value) => {
+          console.log(value);
+          return (
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <FiUser style={{ marginRight: '8px' }} />
+            {value}
+          </Box>
+          );
         }}
         sx={{
           height: '3rem',
-          width: '20rem',
           borderRadius: '3rem',
           borderColor: '#aaa',
           '&:focus': {
@@ -39,16 +33,15 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ icon }) => {
           },
         }}
       >
-        <MenuItem value="" disabled><Typography variant='body'>
-          Select an option
-        </Typography>
-        </MenuItem>
-        <MenuItem value="option1">Option 1</MenuItem>
-        <MenuItem value="option2">Option 2</MenuItem>
-        <MenuItem value="option3">Option 3</MenuItem>
+        <MenuItem value="1 person">1 person</MenuItem>
+        <MenuItem value="2 people">2 people</MenuItem>
+        <MenuItem value="3 people">3 people</MenuItem>
+        <MenuItem value="4 people">4 people</MenuItem>
+        <MenuItem value="5 people">5 people</MenuItem>
+        <MenuItem value="6 people">6 people</MenuItem>
       </Select>
     </FormControl>
   );
-}
+};
 
-export default CustomSelect;
+export default MySelectComponent;

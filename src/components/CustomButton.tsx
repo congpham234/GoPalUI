@@ -1,8 +1,7 @@
-// CustomButton.tsx
 import React, { ReactNode } from 'react';
 import Button, { ButtonProps } from '@mui/material/Button';
 import Typography from './Typography';
-import {Color} from './Color';
+import { Color } from './Color';
 
 interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
     children: ReactNode;
@@ -12,9 +11,10 @@ interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
     borderColor?: string; // Define prop for border color
     textTransform?: 'uppercase' | 'lowercase' | 'capitalize' | 'none'; // Define prop for text transformation
     height?: number | string; // Define prop for button height
+    width?: number | string; // Define prop for button width
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ children, customVariant, borderRadius = 99, borderWidth = '0.0625rem', borderColor = '#020617', textTransform = 'none', height = '3rem', ...props }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({ children, customVariant, borderRadius = 99, borderWidth = '0.0625rem', borderColor = '#020617', textTransform = 'none', height = '3rem', width = '100%', ...props }) => {
     let buttonStyle = {};
 
     if (customVariant) {
@@ -36,7 +36,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ children, customVariant, bo
     return (
         <Button
             variant="outlined" // Use the outlined variant to make the border visible
-            style={{ borderRadius, borderWidth, borderColor, boxShadow:  'none', textTransform, height, ...buttonStyle }}
+            style={{ borderRadius, borderWidth, borderColor, boxShadow:  'none', textTransform, height, width, ...buttonStyle }}
             {...props}
         >
         <Typography variant='body'>
