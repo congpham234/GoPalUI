@@ -55,7 +55,7 @@ const apiClientWrapper = {
       throw new Error('ApiClient is not initialized or is unavailable.')
     }
     return await apiClient.default.searchDestination(query)
-  }
+  },
 }
 
 export { apiClientWrapper as apiClient }
