@@ -3,20 +3,28 @@ const { name } = require('./package')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
-  webpack: (config) => {
+  webpack: (config, env) => {
     config.output.library = name
     config.output.libraryTarget = 'umd'
     config.output.chunkLoadingGlobal = `webpackJsonp_${name}`
-    // CSS replace MiniCssExtractPlugin
-    config.plugins = config.plugins.map((plugin) => {
-      return plugin instanceof MiniCssExtractPlugin
+
+    // Modify CSS plugin settings
+    config.plugins = config.plugins.map((plugin) =>
+      plugin.constructor.name === 'MiniCssExtractPlugin'
         ? new MiniCssExtractPlugin({
             ignoreOrder: true,
           })
         : plugin
+    )
+    // Add the ts-loader for TypeScript files
+    config.module.rules.push({
+      test: /\.[jt]sx?$/,
+      loader: 'esbuild-loader',
     })
+
     return config
   },
+
   devServer: (configFunction) => {
     return (proxy, allowedHost) => {
       const config = configFunction(proxy, allowedHost)
@@ -30,6 +38,7 @@ module.exports = {
       return config
     }
   },
+
   jest: (config) => {
     config.collectCoverageFrom = [
       'src/**/*.{js,jsx,ts,tsx}',
@@ -39,8 +48,6 @@ module.exports = {
       '!src/public-path.js',
       '!src/reportWebVitals.ts',
       '!src/microapp/config.ts',
-      // Temporarily leave these 2 files in the directory in case we need to manually test the behavior with
-      // some specific API returns.
       '!src/pages/VersionPage/mockAPIs.ts',
       '!src/pages/VersionPage/mockedData.ts',
     ]

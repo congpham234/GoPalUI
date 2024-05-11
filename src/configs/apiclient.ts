@@ -7,8 +7,8 @@ async function createApiClient(): Promise<GoPal> {
   const apiToken = await getDefaultApiToken()
   return new GoPal({
     BASE: EndpointProvider.getEndpoint(
-      process.env.STAGE,
-      process.env.AWS_REGION
+      process.env.STAGE!,
+      process.env.AWS_REGION!
     ),
     TOKEN: apiToken,
   })

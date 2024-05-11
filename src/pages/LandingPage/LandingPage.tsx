@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CustomButton from '../../components/CustomButton'
 import Typography from '../../components/Typography'
 import { FiMenu } from 'react-icons/fi'
@@ -6,19 +6,19 @@ import styles from './LandingPage.module.scss'
 import NewDateRangePicker from '../../components/CustomDateRangePicker'
 import SearchInput from '../../components/SearchInput'
 import NewSelect from '../../components/NewSelect'
+import apiClient from 'configs'
 
 function LandingPage() {
-  //   const [beer, setBeer] = useState<string>()
+  const [beer, setBeer] = useState<string>()
 
-  // Declaring the event handler as async
   const handleOnSearchChange = async (value: string) => {
-    console.log(value)
-    // try {
-    //   const beerResponse = await apiClient.getBeer()
-    //   setBeer(beerResponse.beer)
-    // } catch (error) {
-    //   console.error('Failed to fetch search result:', error)
-    // }
+    try {
+      const beerResponse = await apiClient.getBeer()
+      setBeer(beerResponse.beer)
+      console.log(beer)
+    } catch (error) {
+      console.error('Failed to fetch search result:', error)
+    }
   }
 
   return (
