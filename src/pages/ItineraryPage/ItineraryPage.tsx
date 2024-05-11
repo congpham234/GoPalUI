@@ -1,10 +1,9 @@
-import React from 'react';
+import React from 'react'
 
 function ItineraryPage() {
   return (
     <div className="PlanningPage">
       <header className="App-header">
-
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -18,7 +17,7 @@ function ItineraryPage() {
         </a>
       </header>
     </div>
-  );
+  )
 }
 
-export default ItineraryPage;
+export default ItineraryPage

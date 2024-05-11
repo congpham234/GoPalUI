@@ -1,51 +1,51 @@
 .LandingPage {
-    margin: auto;
-    padding: 0 1rem;
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    > * {
-        margin-bottom: 1.5rem;
-    }
+  margin: auto;
+  padding: 0 1rem;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  > * {
+    margin-bottom: 1.5rem;
+  }
 }
 
 .NavBar {
-    margin-top: 3rem;
-    width:100%;
-    height: 4rem;
+  margin-top: 3rem;
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .Icon2rem {
+    transform: scale(2);
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .Icon2rem {
-        transform: scale(2);
-        display:flex;
-        justify-content: center;
-        width: 2rem;
-    }
+    justify-content: center;
+    width: 2rem;
+  }
 }
 
 .Hero {
-    width:100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    > * {
-        margin-bottom: 1rem;
-    }
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  > * {
+    margin-bottom: 1rem;
+  }
 }
 
 .InputSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  > * {
+    margin-bottom: 1rem;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    > * {
-        margin-bottom: 1rem;
-        width: 100%;
-        text-align: center;
-    }
+    text-align: center;
+  }
 }
 
 // .Icon2rem {

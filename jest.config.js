@@ -4,10 +4,7 @@ module.exports = {
   testRegex: '/tst/.*\\.(test|spec)?\\.(ts)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   collectCoverage: true,
-  collectCoverageFrom: [
-    '!**/node_modules/**',
-    '!**/build/**',
-  ],
+  collectCoverageFrom: ['!**/node_modules/**', '!**/build/**'],
   coverageReporters: ['clover', 'json', 'lcov', ['text', { skipFull: true }]],
   // coverageThreshold: {
   //   global: {
@@ -16,4 +13,4 @@ module.exports = {
   //   },
   // },
   testTimeout: 10000,
-};
+}

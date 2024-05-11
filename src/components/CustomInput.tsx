@@ -1,15 +1,19 @@
-import React from 'react';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
-import { Color } from './Color';
+import React from 'react'
+import TextField from '@mui/material/TextField'
+import InputAdornment from '@mui/material/InputAdornment'
+import { Color } from './Color'
 
 interface CustomInputProps {
-  icon: React.FC<React.SVGProps<SVGSVGElement>>;
-  label: string;
-  placeholder: string;
+  icon: React.FC<React.SVGProps<SVGSVGElement>>
+  label: string
+  placeholder: string
 }
 
-const CustomInputWithIcon: React.FC<CustomInputProps> = ({ icon: IconComponent, label, ...rest }) => {
+const CustomInputWithIcon: React.FC<CustomInputProps> = ({
+  icon: IconComponent,
+  label,
+  ...rest
+}) => {
   return (
     <TextField
       variant="outlined"
@@ -23,19 +27,19 @@ const CustomInputWithIcon: React.FC<CustomInputProps> = ({ icon: IconComponent, 
         ),
       }}
       sx={{
-        "& .MuiOutlinedInput-root": {
+        '& .MuiOutlinedInput-root': {
           color: Color.dark,
-          fontFamily: "Poppins",
+          fontFamily: 'Poppins',
           height: '3rem',
           borderRadius: '3rem',
-          "& .MuiOutlinedInput-notchedOutline": {
+          '& .MuiOutlinedInput-notchedOutline': {
             borderColor: Color.border,
           },
         },
       }}
       {...rest}
     />
-  );
-};
+  )
+}
 
-export default CustomInputWithIcon;
+export default CustomInputWithIcon

@@ -32,7 +32,7 @@
     "start": "react-scripts start",
     "lint": "eslint .",
     "prettify": "prettier --write .",
-    "format": "npm run lint -- --fix",
+    "format": "npm run prettify && npm run lint -- --fix",
     "pre-build": "npm run prettify && npm run format",
     "build": "react-scripts build",
     "test": "react-scripts test",

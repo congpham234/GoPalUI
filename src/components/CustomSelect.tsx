@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
-import { Box, FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import { FiUser } from "react-icons/fi";
-import { Color } from './Color';
+import React, { useState } from 'react'
+import {
+  Box,
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material'
+import { FiUser } from 'react-icons/fi'
+import { Color } from './Color'
 
 const MySelectComponent = () => {
-  const [selectedValue, setSelectedValue] = useState<string>('1 person');
+  const [selectedValue, setSelectedValue] = useState<string>('1 person')
 
   const handleChange = (event: SelectChangeEvent<string>) => {
-    setSelectedValue(event.target.value);
-  };
+    setSelectedValue(event.target.value)
+  }
 
   return (
     <FormControl fullWidth>
@@ -17,20 +23,20 @@ const MySelectComponent = () => {
         onChange={handleChange}
         displayEmpty
         renderValue={(value) => {
-          console.log(value);
+          console.log(value)
           return (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <FiUser style={{ marginRight: '8px' }} />
-            {value}
-          </Box>
-          );
+              <FiUser style={{ marginRight: '8px' }} />
+              {value}
+            </Box>
+          )
         }}
         sx={{
           height: '3rem',
           borderRadius: '3rem',
-          "& .MuiSelect-select": {
+          '& .MuiSelect-select': {
             color: Color.dark,
-            fontFamily: "Poppins",
+            fontFamily: 'Poppins',
           },
         }}
       >
@@ -42,7 +48,7 @@ const MySelectComponent = () => {
         <MenuItem value="6 people">6 people</MenuItem>
       </Select>
     </FormControl>
-  );
-};
+  )
+}
 
-export default MySelectComponent;
+export default MySelectComponent

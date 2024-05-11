@@ -1,3 +1,3 @@
-import ItineraryPage from "./ItineraryPage";
+import ItineraryPage from './ItineraryPage'
 
-export default ItineraryPage;
+export default ItineraryPage

@@ -1,32 +1,32 @@
-import React from 'react';
-import { ConfigProvider, Select } from 'antd';
-import { Color } from './Color';
-import './NewSelect.scss';
+import React from 'react'
+import { ConfigProvider, Select } from 'antd'
+import { Color } from './Color'
+import './NewSelect.scss'
 
 const handleChange = (value: string) => {
-  console.log(`selected ${value}`);
-};
+  console.log(`selected ${value}`)
+}
 
 const NewSelect: React.FC = () => (
-    <ConfigProvider
+  <ConfigProvider
     theme={{
-        components: {
-            Select: {
-              optionHeight: 48,
-              optionFontSize: 16,
-              optionPadding: 12,
-            }
-          },
+      components: {
+        Select: {
+          optionHeight: 48,
+          optionFontSize: 16,
+          optionPadding: 12,
+        },
+      },
     }}
   >
     <Select
       defaultValue="1"
-      style={{ 
+      style={{
         height: '3rem',
         width: '100%',
         borderColor: Color.border,
         color: Color.dark,
-        }}
+      }}
       onChange={handleChange}
       options={[
         { value: '1', label: '1 person' },
@@ -37,7 +37,7 @@ const NewSelect: React.FC = () => (
         { value: '6', label: '6 people' },
       ]}
     />
-    </ConfigProvider>
-);
+  </ConfigProvider>
+)
 
-export default NewSelect;
+export default NewSelect
