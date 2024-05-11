@@ -33,7 +33,7 @@
     "lint": "eslint .",
     "prettify": "prettier --write .",
     "format": "npm run prettify && npm run lint -- --fix",
-    "pre-build": "npm run prettify && npm run format",
+    "prebuild": "npm run format",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
