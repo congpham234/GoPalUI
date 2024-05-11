@@ -3,19 +3,11 @@ const { name } = require('./package')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
-  webpack: (config, env) => {
+  webpack: (config) => {
     config.output.library = name
     config.output.libraryTarget = 'umd'
     config.output.chunkLoadingGlobal = `webpackJsonp_${name}`
 
-    // Modify CSS plugin settings
-    config.plugins = config.plugins.map((plugin) =>
-      plugin.constructor.name === 'MiniCssExtractPlugin'
-        ? new MiniCssExtractPlugin({
-            ignoreOrder: true,
-          })
-        : plugin
-    )
     // Add the ts-loader for TypeScript files
     config.module.rules.push({
       test: /\.[jt]sx?$/,

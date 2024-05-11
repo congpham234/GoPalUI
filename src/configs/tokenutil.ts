@@ -7,7 +7,7 @@ import { checkEnvVariables } from './commonutil'
 
 // Initialize the Cognito Identity Provider client
 const client = new CognitoIdentityProviderClient({
-  region: process.env.AWS_REGION, // Ensure AWS_REGION is set in your .env file
+  region: process.env.REACT_APP_AWS_REGION, // Ensure AWS_REGION is set in your .env file
 })
 
 async function getApiToken(
@@ -15,7 +15,7 @@ async function getApiToken(
   password: string
 ): Promise<string> {
   // Check client-specific variables
-  checkEnvVariables(['AWS_REGION', 'REACT_APP_SECRET_HASH'])
+  checkEnvVariables(['REACT_APP_AWS_REGION', 'REACT_APP_SECRET_HASH'])
 
   const params = {
     AuthFlow: AuthFlowType.USER_PASSWORD_AUTH,

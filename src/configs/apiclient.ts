@@ -7,8 +7,8 @@ async function createApiClient(): Promise<GoPal> {
   const apiToken = await getDefaultApiToken()
   return new GoPal({
     BASE: EndpointProvider.getEndpoint(
-      process.env.STAGE!,
-      process.env.AWS_REGION!
+      process.env.REACT_APP_STAGE!,
+      process.env.REACT_APP_AWS_REGION!
     ),
     TOKEN: apiToken,
   })
@@ -16,7 +16,7 @@ async function createApiClient(): Promise<GoPal> {
 
 // Encapsulate client initialization and token refresh in an async function
 async function initializeApiClient() {
-  checkEnvVariables(['STAGE', 'AWS_REGION'])
+  checkEnvVariables(['REACT_APP_STAGE', 'REACT_APP_AWS_REGION'])
   apiClient = await createApiClient()
   scheduleTokenRefresh()
 }
