@@ -18,7 +18,7 @@ function LandingPage() {
     try {
       const response: SearchDestinationResponseContent =
         await apiClient.searchDestination(value)
-      const destinations: Array<Destination> = response.destinations!
+      const destinations: Array<Destination> = response.destinations ?? [];
 
       let autoSuggestOptions = []
       for (const destination of destinations) {
