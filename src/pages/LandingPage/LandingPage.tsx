@@ -1,17 +1,26 @@
 import React from 'react'
 import CustomButton from '../../components/CustomButton'
 import Typography from '../../components/Typography'
-// import { FiSearch } from "react-icons/fi";
 import { FiMenu } from 'react-icons/fi'
-// import CustomInputWithIcon from '../../components/CustomInput';
 import styles from './LandingPage.module.scss'
-// import CustomSelect from '../../components/CustomSelect';
 import NewDateRangePicker from '../../components/CustomDateRangePicker'
-import NewInput from '../../components/NewInput'
+import SearchInput from '../../components/SearchInput'
 import NewSelect from '../../components/NewSelect'
-// Import other components as needed
 
 function LandingPage() {
+  //   const [beer, setBeer] = useState<string>()
+
+  // Declaring the event handler as async
+  const handleOnSearchChange = async (value: string) => {
+    console.log(value)
+    // try {
+    //   const beerResponse = await apiClient.getBeer()
+    //   setBeer(beerResponse.beer)
+    // } catch (error) {
+    //   console.error('Failed to fetch search result:', error)
+    // }
+  }
+
   return (
     <div className={styles.LandingPage}>
       <div className={styles.NavBar}>
@@ -27,11 +36,12 @@ function LandingPage() {
       </div>
       <div className={styles.InputSection}>
         <Typography variant="h3">Start planning your trip</Typography>
-        {/* <div><CustomInputWithIcon icon={FiSearch} label=''placeholder='Search by city or town'/></div> */}
-        <NewInput />
+        <SearchInput
+          placeholder="Search by city or town"
+          handleOnChange={handleOnSearchChange}
+        />
         <NewDateRangePicker />
         <NewSelect />
-        {/* <div><CustomSelect/></div> */}
         <CustomButton customVariant="primary">Plan My Trip</CustomButton>
       </div>
     </div>
