@@ -31,7 +31,7 @@ function scheduleTokenRefresh() {
     } catch (error) {
       console.error('Failed to refresh API client:', error)
     }
-  }, 600000) // 600000 ms = 10 minutes
+  }, 1800000) // 1800000 ms = 30 minutes
 }
 
 // Global variable to hold the API client
@@ -49,6 +49,13 @@ const apiClientWrapper = {
     }
     return await apiClient.default.getBeer()
   },
+
+  searchDestination: async (query: string) => {
+    if (!apiClient) {
+      throw new Error('ApiClient is not initialized or is unavailable.')
+    }
+    return await apiClient.default.searchDestination(query)
+  }
 }
 
 export { apiClientWrapper as apiClient }

@@ -7,17 +7,29 @@ import NewDateRangePicker from '../../components/CustomDateRangePicker'
 import SearchInput from '../../components/SearchInput'
 import NewSelect from '../../components/NewSelect'
 import apiClient from 'configs'
+import { Destination, SearchDestinationResponseContent } from 'gopalapimodel'
 
 function LandingPage() {
-  const [beer, setBeer] = useState<string>()
+  const [destinations, setDestinations] = useState<Destination[]>()
 
-  const handleOnSearchChange = async (value: string) => {
+  const handleOnSearch = async (value: string): Promise<Array<{ imageUrl: string; title: string }>> => {
     try {
-      const beerResponse = await apiClient.getBeer()
-      setBeer(beerResponse.beer)
-      console.log(beer)
+      const response: SearchDestinationResponseContent = await apiClient.searchDestination(value);
+      const destinations: Array<Destination> = response.destinations!;
+      
+      let autoSuggestOptions = [];
+      for (const destination of destinations) { // Corrected loop syntax
+        autoSuggestOptions.push({
+          imageUrl: destination.imageUrl,
+          title: `${destination.name}, ${destination.cityName}, ${destination.country}`
+        });
+      }
+
+      setDestinations(destinations);
+      return autoSuggestOptions;
     } catch (error) {
-      console.error('Failed to fetch search result:', error)
+      console.error('Failed to fetch search result:', error);
+      return []; // It's good to return an empty array in case of an error
     }
   }
 
@@ -38,7 +50,7 @@ function LandingPage() {
         <Typography variant="h3">Start planning your trip</Typography>
         <SearchInput
           placeholder="Search by city or town"
-          handleOnChange={handleOnSearchChange}
+          handleOnSearch={handleOnSearch}
         />
         <NewDateRangePicker />
         <NewSelect />
