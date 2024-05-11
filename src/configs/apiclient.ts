@@ -4,14 +4,14 @@ import { checkEnvVariables } from './commonutil'
 
 // Function to create the API client with a fresh token
 async function createApiClient(): Promise<GoPal> {
-  const apiToken = await getDefaultApiToken()
+  const apiToken = await getDefaultApiToken();
   return new GoPal({
     BASE: EndpointProvider.getEndpoint(
       process.env.REACT_APP_STAGE!,
       process.env.REACT_APP_AWS_REGION!
     ),
     TOKEN: apiToken,
-  })
+  });
 }
 
 // Encapsulate client initialization and token refresh in an async function
@@ -45,10 +45,10 @@ initializeApiClient().catch((error) => {
 const apiClientWrapper = {
   getBeer: async () => {
     if (!apiClient) {
-      throw new Error('ApiClient is not initialized or is unavailable.')
+      throw new Error('ApiClient is not initialized or is unavailable.');
     }
-    return await apiClient.default.getBeer()
+    return await apiClient.default.getBeer();
   },
-}
+};
 
-export { apiClientWrapper as apiClient }
+export { apiClientWrapper as apiClient };

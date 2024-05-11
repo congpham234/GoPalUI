@@ -39,9 +39,6 @@ module.exports = {
       '!src/serviceWorker.ts',
       '!src/public-path.js',
       '!src/reportWebVitals.ts',
-      '!src/microapp/config.ts',
-      '!src/pages/VersionPage/mockAPIs.ts',
-      '!src/pages/VersionPage/mockedData.ts',
     ]
     config.transform = {
       '\\.[tj]sx?$': ['@swc/jest'],
