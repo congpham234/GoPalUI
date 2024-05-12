@@ -17,8 +17,8 @@ interface AutoSuggestOption {
 
 function AutoCompleteOptions(imageUrl: string, title: string) {
   return (
-    <div 
-      className='AutoCompleteOptions'
+    <div
+      className="AutoCompleteOptions"
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -40,9 +40,9 @@ function SearchInput(props: SearchInputProps) {
   const { placeholder, handleOnSearch } = props
 
   const [options, setOptions] = useState<OptionType[]>([])
-  // debounce for 700 ms
+  // debounce for 500 ms
   const debouncedSearch = useCallback(
-    debounce((nextValue: string) => onSearch(nextValue), 700),
+    debounce((nextValue: string) => onSearch(nextValue), 500),
     []
   )
 

@@ -2,10 +2,9 @@ import EndpointProvider, { GoPal } from 'gopalapimodel'
 import { getDefaultApiToken } from './tokenutil'
 import { checkEnvVariables } from './commonutil'
 
-// Function to create the API client with a fresh token
+// Utility to create the API client
 async function createApiClient(): Promise<GoPal> {
   const apiToken = await getDefaultApiToken()
-  // Get the stage and region from environment variables safely
   const stage = process.env.REACT_APP_STAGE || ''
   const region = process.env.REACT_APP_AWS_REGION || ''
   return new GoPal({
@@ -14,48 +13,73 @@ async function createApiClient(): Promise<GoPal> {
   })
 }
 
-// Encapsulate client initialization and token refresh in an async function
+// Global variable to hold the API client
+let apiClient: GoPal | undefined
+
+// Initializes and maintains the API client
 async function initializeApiClient() {
   checkEnvVariables(['REACT_APP_STAGE', 'REACT_APP_AWS_REGION'])
   apiClient = await createApiClient()
+  keepLambdaAlive()
   scheduleTokenRefresh()
 }
 
-// Schedule token refresh every 10 minutes and recreate the apiClient
+// Periodically refreshes the API client token
 function scheduleTokenRefresh() {
   setInterval(async () => {
-    try {
-      console.log('Refreshing token and recreating API client...')
-      apiClient = await createApiClient()
-      console.log('API client refreshed successfully!')
-    } catch (error) {
-      console.error('Failed to refresh API client:', error)
-    }
+    console.log('Refreshing token and recreating API client...')
+    apiClient = await createApiClient()
+    console.log('API client refreshed successfully!')
   }, 1800000) // 1800000 ms = 30 minutes
 }
 
-// Global variable to hold the API client
-let apiClient: GoPal | undefined
+// Keeps the Lambda function warm
+function keepLambdaAlive() {
+  // Immediately call the method once before starting the interval
+  if (apiClient) {
+    apiClient.default.getBeer().catch((error) => {
+      console.error('Failed to keep Lambda alive on initial call:', error)
+    })
+  }
+
+  // Then set up the interval to repeat the call every 10 seconds
+  setInterval(() => {
+    try {
+      if (apiClient) {
+        apiClient.default.getBeer()
+      }
+    } catch (error) {
+      console.error('Failed to keep Lambda alive:', error)
+    }
+  }, 10000) // 10000 ms = 10 seconds
+}
+
+type ApiClientMethod<T> = (client: GoPal) => Promise<T>
+
+// Helper function to execute API client methods safely
+async function executeApiClientMethod<T>(
+  method: ApiClientMethod<T>
+): Promise<T> {
+  if (!apiClient) {
+    throw new Error('ApiClient is not initialized or is unavailable.')
+  }
+  return method(apiClient)
+}
+
+const apiClientWrapper = {
+  getBeer: async (): Promise<any> => {
+    return executeApiClientMethod((client) => client.default.getBeer())
+  },
+
+  searchDestination: async (query: string): Promise<any> => {
+    return executeApiClientMethod((client) =>
+      client.default.searchDestination(query)
+    )
+  },
+}
 
 initializeApiClient().catch((error) => {
   console.error('Failed to initialize the API client:', error)
 })
-
-// Define apiClient as an object with methods
-const apiClientWrapper = {
-  getBeer: async () => {
-    if (!apiClient) {
-      throw new Error('ApiClient is not initialized or is unavailable.')
-    }
-    return await apiClient.default.getBeer()
-  },
-
-  searchDestination: async (query: string) => {
-    if (!apiClient) {
-      throw new Error('ApiClient is not initialized or is unavailable.')
-    }
-    return await apiClient.default.searchDestination(query)
-  },
-}
 
 export { apiClientWrapper as apiClient }

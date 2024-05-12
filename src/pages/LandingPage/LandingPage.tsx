@@ -17,6 +17,9 @@ function LandingPage() {
     value: string
   ): Promise<Array<{ imageUrl: string; title: string }>> => {
     try {
+      if (!value) {
+        return []
+      }
       const response: SearchDestinationResponseContent =
         await apiClient.searchDestination(value)
       const destinations: Array<Destination> = response.destinations ?? []
