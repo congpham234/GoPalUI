@@ -6,8 +6,9 @@ import styles from './LandingPage.module.scss'
 import NewDateRangePicker from '../../components/CustomDateRangePicker'
 import SearchInput from '../../components/SearchInput'
 import NewSelect from '../../components/NewSelect'
-import apiClient from 'configs'
+
 import { Destination, SearchDestinationResponseContent } from 'gopalapimodel'
+import apiClient from '../../configs'
 
 function LandingPage() {
   const [destinations, setDestinations] = useState<Destination[]>()
@@ -18,7 +19,7 @@ function LandingPage() {
     try {
       const response: SearchDestinationResponseContent =
         await apiClient.searchDestination(value)
-      const destinations: Array<Destination> = response.destinations ?? [];
+      const destinations: Array<Destination> = response.destinations ?? []
 
       let autoSuggestOptions = []
       for (const destination of destinations) {

@@ -17,11 +17,12 @@ interface AutoSuggestOption {
 
 function AutoCompleteOptions(imageUrl: string, title: string) {
   return (
-    <div
+    <div 
+      className='AutoCompleteOptions'
       style={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        // justifyContent: 'space-between',
       }}
     >
       <img src={imageUrl} alt={title} style={{ marginRight: 10 }} />
