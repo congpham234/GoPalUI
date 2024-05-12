@@ -1,11 +1,11 @@
-import React from 'react'
-import { ConfigProvider, Select } from 'antd'
-import { Color } from './Color'
-import './NewSelect.scss'
+import React from 'react';
+import { ConfigProvider, Select } from 'antd';
+import { Color } from './Color';
+import './NewSelect.scss';
 
 const handleChange = (value: string) => {
-  console.log(`selected ${value}`)
-}
+  console.log(`selected ${value}`);
+};
 
 const NewSelect: React.FC = () => (
   <ConfigProvider
@@ -38,6 +38,6 @@ const NewSelect: React.FC = () => (
       ]}
     />
   </ConfigProvider>
-)
+);
 
-export default NewSelect
+export default NewSelect;

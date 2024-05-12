@@ -1,18 +1,18 @@
-import React, { useCallback, useState } from 'react'
-import { FiSearch } from 'react-icons/fi'
-import { AutoComplete, Input } from 'antd'
-import { Color } from './Color'
-import './SearchInput.scss'
-import debounce from 'lodash.debounce'
+import React, { useCallback, useState } from 'react';
+import { FiSearch } from 'react-icons/fi';
+import { AutoComplete, Input } from 'antd';
+import { Color } from './Color';
+import './SearchInput.scss';
+import debounce from 'lodash.debounce';
 
 interface SearchInputProps {
-  placeholder: string
-  handleOnSearch: (value: string) => Promise<AutoSuggestOption[]>
+  placeholder: string;
+  handleOnSearch: (value: string) => Promise<AutoSuggestOption[]>;
 }
 
 interface AutoSuggestOption {
-  imageUrl: string
-  title: string
+  imageUrl: string;
+  title: string;
 }
 
 function AutoCompleteOptions(imageUrl: string, title: string) {
@@ -28,40 +28,40 @@ function AutoCompleteOptions(imageUrl: string, title: string) {
       <img src={imageUrl} alt={title} style={{ marginRight: 10 }} />
       {title}
     </div>
-  )
+  );
 }
 
 interface OptionType {
-  value: string
-  label: JSX.Element // JSX.Element for custom render
+  value: string;
+  label: JSX.Element; // JSX.Element for custom render
 }
 
 function SearchInput(props: SearchInputProps) {
-  const { placeholder, handleOnSearch } = props
+  const { placeholder, handleOnSearch } = props;
 
-  const [options, setOptions] = useState<OptionType[]>([])
-  // debounce for 500 ms
+  const [options, setOptions] = useState<OptionType[]>([]);
+  // debounce for 400 ms
   const debouncedSearch = useCallback(
-    debounce((nextValue: string) => onSearch(nextValue), 500),
+    debounce((nextValue: string) => onSearch(nextValue), 400),
     []
-  )
+  );
 
   const onSearch = async (searchText: string) => {
     try {
-      const autoSuggestOptions = await handleOnSearch(searchText)
+      const autoSuggestOptions = await handleOnSearch(searchText);
       const filteredOptions = autoSuggestOptions.map((option) => ({
         value: option.title,
         label: AutoCompleteOptions(option.imageUrl, option.title),
-      }))
-      setOptions(filteredOptions)
+      }));
+      setOptions(filteredOptions);
     } catch (error) {
-      console.error('Failed to fetch auto suggestions:', error)
+      console.error('Failed to fetch auto suggestions:', error);
     }
-  }
+  };
 
   const onSelect = (value: string) => {
-    console.log('onSelect', value)
-  }
+    console.log('onSelect', value);
+  };
 
   return (
     <AutoComplete
@@ -87,7 +87,7 @@ function SearchInput(props: SearchInputProps) {
         }}
       />
     </AutoComplete>
-  )
+  );
 }
 
-export default SearchInput
+export default SearchInput;

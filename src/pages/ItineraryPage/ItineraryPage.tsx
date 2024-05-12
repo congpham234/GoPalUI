@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function ItineraryPage() {
   return (
@@ -17,7 +17,7 @@ function ItineraryPage() {
         </a>
       </header>
     </div>
-  )
+  );
 }
 
-export default ItineraryPage
+export default ItineraryPage;

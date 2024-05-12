@@ -1,12 +1,12 @@
-import React from 'react'
-import TextField from '@mui/material/TextField'
-import InputAdornment from '@mui/material/InputAdornment'
-import { Color } from './Color'
+import React from 'react';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import { Color } from './Color';
 
 interface CustomInputProps {
-  icon: React.FC<React.SVGProps<SVGSVGElement>>
-  label: string
-  placeholder: string
+  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  label: string;
+  placeholder: string;
 }
 
 const CustomInputWithIcon: React.FC<CustomInputProps> = ({
@@ -39,7 +39,7 @@ const CustomInputWithIcon: React.FC<CustomInputProps> = ({
       }}
       {...rest}
     />
-  )
-}
+  );
+};
 
-export default CustomInputWithIcon
+export default CustomInputWithIcon;

@@ -1,34 +1,34 @@
 /* eslint-disable */
-const { name } = require('./package')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { name } = require('./package');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   webpack: (config) => {
-    config.output.library = name
-    config.output.libraryTarget = 'umd'
-    config.output.chunkLoadingGlobal = `webpackJsonp_${name}`
+    config.output.library = name;
+    config.output.libraryTarget = 'umd';
+    config.output.chunkLoadingGlobal = `webpackJsonp_${name}`;
 
     // Add the ts-loader for TypeScript files
     config.module.rules.push({
       test: /\.[jt]sx?$/,
       loader: 'esbuild-loader',
-    })
+    });
 
-    return config
+    return config;
   },
 
   devServer: (configFunction) => {
     return (proxy, allowedHost) => {
-      const config = configFunction(proxy, allowedHost)
-      config.historyApiFallback = true
-      config.open = false
-      config.hot = false
-      config.liveReload = true
+      const config = configFunction(proxy, allowedHost);
+      config.historyApiFallback = true;
+      config.open = false;
+      config.hot = false;
+      config.liveReload = true;
       config.headers = {
         'Access-Control-Allow-Origin': '*',
-      }
-      return config
-    }
+      };
+      return config;
+    };
   },
 
   jest: (config) => {
@@ -39,11 +39,11 @@ module.exports = {
       '!src/serviceWorker.ts',
       '!src/public-path.js',
       '!src/reportWebVitals.ts',
-    ]
+    ];
     config.transform = {
       '\\.[tj]sx?$': ['@swc/jest'],
       ...config.transform,
-    }
-    return config
+    };
+    return config;
   },
-}
+};

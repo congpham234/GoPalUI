@@ -1,9 +1,9 @@
-import React from 'react'
-import { DatePicker } from 'antd'
-import { Color } from './Color'
-import './CustomDateRangePicker.scss'
+import React from 'react';
+import { DatePicker } from 'antd';
+import { Color } from './Color';
+import './CustomDateRangePicker.scss';
 
-const { RangePicker } = DatePicker
+const { RangePicker } = DatePicker;
 
 const NewDateRangePicker = () => {
   return (
@@ -19,7 +19,7 @@ const NewDateRangePicker = () => {
         color: Color.dark,
       }}
     />
-  )
-}
+  );
+};
 
-export default NewDateRangePicker
+export default NewDateRangePicker;

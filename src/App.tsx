@@ -1,9 +1,9 @@
-import React, { lazy, Suspense } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Lazy-loaded components
-const LandingPage = lazy(() => import('./pages/LandingPage'))
-const ItineraryPage = lazy(() => import('./pages/ItineraryPage'))
+const LandingPage = lazy(() => import('./pages/LandingPage'));
+const ItineraryPage = lazy(() => import('./pages/ItineraryPage'));
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         </Routes>
       </Suspense>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

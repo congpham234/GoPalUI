@@ -43,8 +43,25 @@
   align-items: center;
   > * {
     margin-bottom: 1rem;
-    width: 100%;
+    width: 100%; /* Ensures it takes the full width on smaller screens */
     text-align: center;
+  }
+}
+
+/* Media queries for tablets and desktops */
+@media (min-width: 768px) {
+  /* Adjusts for tablets and up */
+  .InputSection {
+    width: 75%; /* Example width, adjust as needed */
+    margin: 0 auto; /* Centers the section in the viewport */
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Adjusts for laptops/desktops */
+  .InputSection {
+    width: 50%; /* Reduces the width for larger screens */
+    margin: 0 auto; /* Keeps the section centered */
   }
 }
 

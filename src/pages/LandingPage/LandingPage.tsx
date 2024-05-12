@@ -1,45 +1,54 @@
-import React, { useState } from 'react'
-import CustomButton from '../../components/CustomButton'
-import Typography from '../../components/Typography'
-import { FiMenu } from 'react-icons/fi'
-import styles from './LandingPage.module.scss'
-import NewDateRangePicker from '../../components/CustomDateRangePicker'
-import SearchInput from '../../components/SearchInput'
-import NewSelect from '../../components/NewSelect'
+import React, { useState } from 'react';
+import CustomButton from '../../components/CustomButton';
+import Typography from '../../components/Typography';
+import { FiMenu } from 'react-icons/fi';
+import styles from './LandingPage.module.scss';
+import NewDateRangePicker from '../../components/CustomDateRangePicker';
+import SearchInput from '../../components/SearchInput';
+import NewSelect from '../../components/NewSelect';
 
-import { Destination, SearchDestinationResponseContent } from 'gopalapimodel'
-import apiClient from '../../configs'
+import { Destination, SearchDestinationResponseContent } from 'gopalapimodel';
+import apiClient from '../../configs';
 
 function LandingPage() {
-  const [destinations, setDestinations] = useState<Destination[]>()
+  const [destinations, setDestinations] = useState<Destination[]>();
 
   const handleOnSearch = async (
     value: string
   ): Promise<Array<{ imageUrl: string; title: string }>> => {
     try {
-      if (!value) {
-        return []
-      }
+      if (!value) return [];
+
       const response: SearchDestinationResponseContent =
-        await apiClient.searchDestination(value)
-      const destinations: Array<Destination> = response.destinations ?? []
+        await apiClient.searchDestination(value);
+      const destinations: Array<Destination> = response.destinations ?? [];
 
-      let autoSuggestOptions = []
+      let autoSuggestOptions = [];
       for (const destination of destinations) {
-        // Corrected loop syntax
-        autoSuggestOptions.push({
-          imageUrl: destination.imageUrl,
-          title: `${destination.name}, ${destination.cityName}, ${destination.country}`,
-        })
+        if (destination.imageUrl) {
+          // Filter out empty or undefined values and join them with a comma
+          const title = [
+            destination.name,
+            destination.cityName,
+            destination.country,
+          ]
+            .filter(Boolean) // Removes falsy values such as undefined, null, empty string, etc.
+            .join(', ');
+
+          autoSuggestOptions.push({
+            imageUrl: destination.imageUrl,
+            title: title,
+          });
+        }
       }
 
-      setDestinations(destinations)
-      return autoSuggestOptions
+      setDestinations(destinations);
+      return autoSuggestOptions;
     } catch (error) {
-      console.error('Failed to fetch search result:', error)
-      return [] // It's good to return an empty array in case of an error
+      console.error('Failed to fetch search result:', error);
+      return []; // It's good to return an empty array in case of an error
     }
-  }
+  };
 
   return (
     <div className={styles.LandingPage}>
@@ -65,7 +74,7 @@ function LandingPage() {
         <CustomButton customVariant="primary">Plan My Trip</CustomButton>
       </div>
     </div>
-  )
+  );
 }
 
-export default LandingPage
+export default LandingPage;
