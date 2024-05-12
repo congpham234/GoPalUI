@@ -20,7 +20,8 @@ let apiClient: GoPal | undefined
 async function initializeApiClient() {
   checkEnvVariables(['REACT_APP_STAGE', 'REACT_APP_AWS_REGION'])
   apiClient = await createApiClient()
-  keepLambdaAlive()
+  // Ping Lambda
+  apiClient.default.getBeer()
   scheduleTokenRefresh()
 }
 
@@ -31,27 +32,6 @@ function scheduleTokenRefresh() {
     apiClient = await createApiClient()
     console.log('API client refreshed successfully!')
   }, 1800000) // 1800000 ms = 30 minutes
-}
-
-// Keeps the Lambda function warm
-function keepLambdaAlive() {
-  // Immediately call the method once before starting the interval
-  if (apiClient) {
-    apiClient.default.getBeer().catch((error) => {
-      console.error('Failed to keep Lambda alive on initial call:', error)
-    })
-  }
-
-  // Then set up the interval to repeat the call every 10 seconds
-  setInterval(() => {
-    try {
-      if (apiClient) {
-        apiClient.default.getBeer()
-      }
-    } catch (error) {
-      console.error('Failed to keep Lambda alive:', error)
-    }
-  }, 10000) // 10000 ms = 10 seconds
 }
 
 type ApiClientMethod<T> = (client: GoPal) => Promise<T>
