@@ -1,4 +1,4 @@
-import EndpointProvider, { GoPal } from 'gopalapimodel';
+import EndpointProvider, { GetBeerResponseContent, GetItineraryRequestContent, GetItineraryResponseContent, GoPal, SearchDestinationResponseContent } from 'gopalapimodel';
 import { getDefaultApiToken } from './tokenutil';
 import { checkEnvVariables } from './commonutil';
 
@@ -47,15 +47,21 @@ async function executeApiClientMethod<T>(
 }
 
 const apiClientWrapper = {
-  getBeer: async (): Promise<any> => {
+  getBeer: async (): Promise<GetBeerResponseContent> => {
     return executeApiClientMethod((client) => client.default.getBeer());
   },
 
-  searchDestination: async (query: string): Promise<any> => {
+  searchDestination: async (query: string): Promise<SearchDestinationResponseContent> => {
     return executeApiClientMethod((client) =>
       client.default.searchDestination(query)
     );
   },
+
+  getItinerary: async (request: GetItineraryRequestContent): Promise<GetItineraryResponseContent> => {
+    return executeApiClientMethod((client) =>
+      client.default.getItinerary(request)
+    );
+  }
 };
 
 initializeApiClient().catch((error) => {

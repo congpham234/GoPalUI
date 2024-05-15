@@ -77,8 +77,8 @@ function LandingPage() {
       navigate('/itinerary', {
         state: {
           destination: selectedDestination,
-          numOfPeople: selectedNumPeople,
-          dateRange: selectedDateRange,
+          numOfPeople: selectedNumPeople.current,
+          dateRange: selectedDateRange.current,
         },
       });
     }

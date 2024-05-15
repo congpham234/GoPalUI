@@ -1,21 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
 import Accordion from 'components/Accordion';
-import HotelCarousel from '../../components/Carousel';
+import HotelCarousel from '../../components/HotelCarousel';
 import LoadingComponent from '../../components/LoadingComponent';
 import styles from './ItineraryPage.module.scss';
+import apiClient from 'configs';
+import { Day, GetItineraryResponseContent, PlaceToStay } from 'gopalapimodel';
 
 function ItineraryPage() {
   const location = useLocation();
   const { destination, numOfPeople, dateRange } = location.state || {};
 
   const [loading, setLoading] = useState(true);
+  const [placesToStay, setPlacesToStay] = useState<PlaceToStay[]>([]);
+  const [planningDays, setPlanningDays] = useState<Day[]>([]);
+  const isMounted = useRef(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 5000);
-  }, []);
+    if (!destination || !dateRange) {
+      return;
+    }
+
+    const fetchData = async () => {
+      try {
+        if (loading) {
+        const response: GetItineraryResponseContent = await apiClient.getItinerary({
+          destination,
+          numOfPeople,
+          startDate: dateRange[0],
+          endDate: dateRange[1]
+        });
+        setPlacesToStay(response.placesToStay || []);
+        setPlanningDays(response.planningDays || []);
+        }
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      } finally {
+        setLoading(false); // Set loading to false after the API call
+      }
+    };
+
+    if (!isMounted.current) {
+      fetchData();
+      isMounted.current = true;
+    }
+  }, [placesToStay, planningDays]);
 
   if (!destination || !dateRange) {
     return <Navigate to="/" />; // Redirect to the landing page if no destination
@@ -32,7 +61,7 @@ function ItineraryPage() {
         <img src={destination.imageUrl.url1000px} alt={destination.name} />
       </div>
       <div>
-        <HotelCarousel />
+        <HotelCarousel items={placesToStay}/>
       </div>
       <div>
         <Accordion
