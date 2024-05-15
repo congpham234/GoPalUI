@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../components/CustomButton';
 import Typography from '../../components/Typography';
 import { FiMenu } from 'react-icons/fi';
@@ -11,11 +12,13 @@ import { Destination, SearchDestinationResponseContent } from 'gopalapimodel';
 import apiClient from '../../configs';
 
 function LandingPage() {
-  const [destinations, setDestinations] = useState<Destination[]>();
+  const [destinations, setDestinations] = useState<Destination[]>([]);
+  const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
+  const navigate = useNavigate();
 
-  const handleOnSearch = async (
+  const handleOnSearchDestination = async (
     value: string
-  ): Promise<Array<{ imageUrl: string; title: string }>> => {
+  ): Promise<Array<{ key: string; imageUrl: string; title: string }>> => {
     try {
       if (!value) return [];
 
@@ -26,16 +29,16 @@ function LandingPage() {
       let autoSuggestOptions = [];
       for (const destination of destinations) {
         if (destination.imageUrl) {
-          // Filter out empty or undefined values and join them with a comma
           const title = [
             destination.name,
             destination.cityName,
             destination.country,
           ]
-            .filter(Boolean) // Removes falsy values such as undefined, null, empty string, etc.
+            .filter(Boolean)
             .join(', ');
 
           autoSuggestOptions.push({
+            key: destination.destId,
             imageUrl: destination.imageUrl,
             title: title,
           });
@@ -46,7 +49,18 @@ function LandingPage() {
       return autoSuggestOptions;
     } catch (error) {
       console.error('Failed to fetch search result:', error);
-      return []; // It's good to return an empty array in case of an error
+      return [];
+    }
+  };
+
+  const handleOnSelectDestination = (destinationKey: string) => {
+    const destination = destinations.find((dest) => dest.destId === destinationKey);
+    setSelectedDestination(destination || null);
+  };
+
+  const handlePlanMyTrip = () => {
+    if (selectedDestination) {
+      navigate('/itinerary', { state: { destination: selectedDestination } });
     }
   };
 
@@ -67,11 +81,14 @@ function LandingPage() {
         <Typography variant="h3">Start planning your trip</Typography>
         <SearchInput
           placeholder="Search by city or town"
-          handleOnSearch={handleOnSearch}
+          onSearch={handleOnSearchDestination}
+          onSelect={handleOnSelectDestination}
         />
         <NewDateRangePicker />
         <NewSelect />
-        <CustomButton customVariant="primary">Plan My Trip</CustomButton>
+        <CustomButton customVariant="primary" onClick={handlePlanMyTrip}>
+          Plan My Trip
+        </CustomButton>
       </div>
     </div>
   );

@@ -7,10 +7,12 @@ import debounce from 'lodash.debounce';
 
 interface SearchInputProps {
   placeholder: string;
-  handleOnSearch: (value: string) => Promise<AutoSuggestOption[]>;
+  onSearch: (value: string) => Promise<AutoSuggestOption[]>;
+  onSelect: (key: string) => void;
 }
 
 interface AutoSuggestOption {
+  key: string;
   imageUrl: string;
   title: string;
 }
@@ -22,45 +24,49 @@ function AutoCompleteOptions(imageUrl: string, title: string) {
       style={{
         display: 'flex',
         alignItems: 'center',
-        // justifyContent: 'space-between',
       }}
     >
-      <img src={imageUrl} alt={title} style={{ marginRight: 10 }} />
+      <img src={imageUrl} alt={title} style={{ marginRight: 10, width: 40, height: 40 }} />
       {title}
     </div>
   );
 }
 
 interface OptionType {
+  key: string;
   value: string;
   label: JSX.Element; // JSX.Element for custom render
 }
 
 function SearchInput(props: SearchInputProps) {
-  const { placeholder, handleOnSearch } = props;
+  const { placeholder, onSearch: handleOnSearch, onSelect: handleOnSelect } = props;
 
   const [options, setOptions] = useState<OptionType[]>([]);
-  // debounce for 400 ms
+
   const debouncedSearch = useCallback(
-    debounce((nextValue: string) => onSearch(nextValue), 400),
-    []
+    debounce(async (searchText: string) => {
+      if (!searchText) {
+        setOptions([]);
+        return;
+      }
+
+      try {
+        const autoSuggestOptions = await handleOnSearch(searchText);
+        const filteredOptions = autoSuggestOptions.map((option) => ({
+          key: option.key,
+          value: option.title,
+          label: AutoCompleteOptions(option.imageUrl, option.title),
+        }));
+        setOptions(filteredOptions);
+      } catch (error) {
+        console.error('Failed to fetch auto suggestions:', error);
+      }
+    }, 400),
+    [handleOnSearch]
   );
 
-  const onSearch = async (searchText: string) => {
-    try {
-      const autoSuggestOptions = await handleOnSearch(searchText);
-      const filteredOptions = autoSuggestOptions.map((option) => ({
-        value: option.title,
-        label: AutoCompleteOptions(option.imageUrl, option.title),
-      }));
-      setOptions(filteredOptions);
-    } catch (error) {
-      console.error('Failed to fetch auto suggestions:', error);
-    }
-  };
-
-  const onSelect = (value: string) => {
-    console.log('onSelect', value);
+  const onSelect = (value: string, option: OptionType) => {
+    handleOnSelect(option.key);
   };
 
   return (

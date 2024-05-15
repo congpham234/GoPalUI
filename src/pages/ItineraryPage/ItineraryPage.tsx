@@ -1,14 +1,35 @@
+import React, { useEffect, useState } from 'react';
+import { useLocation, Navigate } from 'react-router-dom';
 import Accordion from 'components/Accordion';
-import React from 'react';
 import HotelCarousel from '../../components/Carousel';
+import LoadingComponent from '../../components/LoadingComponent';
 import styles from './ItineraryPage.module.scss';
 
 function ItineraryPage() {
+  const location = useLocation();
+  const { destination } = location.state || {};
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+
+  if (!destination) {
+    return <Navigate to="/" />; // Redirect to the landing page if no destination
+  }
+
+  if (loading) {
+    return <LoadingComponent />;
+  }
+
   return (
     <div>
       <div className={styles.Hero}>
-        <div className={styles.Title}>New York, USA</div>
-        <img src="https://cdn.britannica.com/61/93061-050-99147DCE/Statue-of-Liberty-Island-New-York-Bay.jpg" />
+        <div className={styles.Title}>{destination.name}</div>
+        <img src={destination.imageUrl} alt={destination.name} />
       </div>
       <div>
         <HotelCarousel />
