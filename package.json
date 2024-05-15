@@ -19,7 +19,7 @@
     "@types/styled-components": "^5.1.34",
     "antd": "^5.17.0",
     "esbuild-loader": "^4.1.0",
-    "gopalapimodel": "1.1.4",
+    "gopalapimodel": "1.1.5",
     "lodash.debounce": "^4.0.8",
     "lottie-react": "^2.4.0",
     "react": "^18.3.1",
