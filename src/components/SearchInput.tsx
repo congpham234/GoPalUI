@@ -26,7 +26,11 @@ function AutoCompleteOptions(imageUrl: string, title: string) {
         alignItems: 'center',
       }}
     >
-      <img src={imageUrl} alt={title} style={{ marginRight: 10, width: 40, height: 40 }} />
+      <img
+        src={imageUrl}
+        alt={title}
+        style={{ marginRight: 10, width: 40, height: 40 }}
+      />
       {title}
     </div>
   );
@@ -39,7 +43,11 @@ interface OptionType {
 }
 
 function SearchInput(props: SearchInputProps) {
-  const { placeholder, onSearch: handleOnSearch, onSelect: handleOnSelect } = props;
+  const {
+    placeholder,
+    onSearch: handleOnSearch,
+    onSelect: handleOnSelect,
+  } = props;
 
   const [options, setOptions] = useState<OptionType[]>([]);
 

@@ -12,7 +12,9 @@ const LoadingComponent = () => (
       animationData={animationData}
       style={{ height: '300px', width: '300px' }}
     />
-    <div className={styles.loadingText}>Planning Your Fucking Amazing Trip ...</div>
+    <div className={styles.loadingText}>
+      Planning Your Fucking Amazing Trip ...
+    </div>
   </div>
 );
 

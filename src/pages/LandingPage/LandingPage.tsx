@@ -13,7 +13,8 @@ import apiClient from '../../configs';
 
 function LandingPage() {
   const [destinations, setDestinations] = useState<Destination[]>([]);
-  const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
+  const [selectedDestination, setSelectedDestination] =
+    useState<Destination | null>(null);
   const navigate = useNavigate();
 
   const handleOnSearchDestination = async (
@@ -54,7 +55,9 @@ function LandingPage() {
   };
 
   const handleOnSelectDestination = (destinationKey: string) => {
-    const destination = destinations.find((dest) => dest.destId === destinationKey);
+    const destination = destinations.find(
+      (dest) => dest.destId === destinationKey
+    );
     setSelectedDestination(destination || null);
   };
 
