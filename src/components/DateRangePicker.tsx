@@ -3,9 +3,13 @@ import { DatePicker } from 'antd';
 import { Color } from './Color';
 import './CustomDateRangePicker.scss';
 
-const { RangePicker } = DatePicker;
+interface DateRangePickerProps {
+  onChange: (dates: any | null, dateStrings: [string, string]) => void;
+}
 
-const NewDateRangePicker = () => {
+function DateRangePicker(props: DateRangePickerProps) {
+  const { RangePicker } = DatePicker;
+
   return (
     <RangePicker
       size="large"
@@ -18,8 +22,9 @@ const NewDateRangePicker = () => {
         fontSize: '1rem',
         color: Color.dark,
       }}
+      onChange={props.onChange}
     />
   );
-};
+}
 
-export default NewDateRangePicker;
+export default DateRangePicker;

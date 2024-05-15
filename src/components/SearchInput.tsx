@@ -13,11 +13,11 @@ interface SearchInputProps {
 
 interface AutoSuggestOption {
   key: string;
-  imageUrl: string;
+  imageUrl?: string;
   title: string;
 }
 
-function AutoCompleteOptions(imageUrl: string, title: string) {
+function AutoCompleteOptions(title: string, imageUrl?: string) {
   return (
     <div
       className="AutoCompleteOptions"
@@ -63,7 +63,7 @@ function SearchInput(props: SearchInputProps) {
         const filteredOptions = autoSuggestOptions.map((option) => ({
           key: option.key,
           value: option.title,
-          label: AutoCompleteOptions(option.imageUrl, option.title),
+          label: AutoCompleteOptions(option.title, option.imageUrl),
         }));
         setOptions(filteredOptions);
       } catch (error) {

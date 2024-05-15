@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../components/CustomButton';
 import Typography from '../../components/Typography';
 import { FiMenu } from 'react-icons/fi';
 import styles from './LandingPage.module.scss';
-import NewDateRangePicker from '../../components/CustomDateRangePicker';
+import DateRangePicker from '../../components/DateRangePicker';
 import SearchInput from '../../components/SearchInput';
-import NewSelect from '../../components/NewSelect';
+import SelectPeople from '../../components/SelectPeople';
 
 import { Destination, SearchDestinationResponseContent } from 'gopalapimodel';
 import apiClient from '../../configs';
@@ -15,11 +15,15 @@ function LandingPage() {
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [selectedDestination, setSelectedDestination] =
     useState<Destination | null>(null);
+
+  const selectedNumPeople = useRef<number>(1);
+  const selectedDateRange = useRef<string[]>([]);
+
   const navigate = useNavigate();
 
   const handleOnSearchDestination = async (
     value: string
-  ): Promise<Array<{ key: string; imageUrl: string; title: string }>> => {
+  ): Promise<Array<{ key: string; imageUrl?: string; title: string }>> => {
     try {
       if (!value) return [];
 
@@ -40,7 +44,7 @@ function LandingPage() {
 
           autoSuggestOptions.push({
             key: destination.destId,
-            imageUrl: destination.imageUrl,
+            imageUrl: destination.imageUrl.url150px,
             title: title,
           });
         }
@@ -61,10 +65,27 @@ function LandingPage() {
     setSelectedDestination(destination || null);
   };
 
+  const handleOnDateRangeSelected = (
+    dates: string[] | null,
+    dateStrings: [string, string]
+  ) => {
+    selectedDateRange.current = dateStrings;
+  };
+
   const handlePlanMyTrip = () => {
-    if (selectedDestination) {
-      navigate('/itinerary', { state: { destination: selectedDestination } });
+    if (selectedDestination && selectedDateRange) {
+      navigate('/itinerary', {
+        state: {
+          destination: selectedDestination,
+          numOfPeople: selectedNumPeople,
+          dateRange: selectedDateRange,
+        },
+      });
     }
+  };
+
+  const handleOnSelectNumPeople = (value: string) => {
+    selectedNumPeople.current = parseInt(value);
   };
 
   return (
@@ -87,8 +108,8 @@ function LandingPage() {
           onSearch={handleOnSearchDestination}
           onSelect={handleOnSelectDestination}
         />
-        <NewDateRangePicker />
-        <NewSelect />
+        <DateRangePicker onChange={handleOnDateRangeSelected} />
+        <SelectPeople onSelect={handleOnSelectNumPeople} />
         <CustomButton customVariant="primary" onClick={handlePlanMyTrip}>
           Plan My Trip
         </CustomButton>

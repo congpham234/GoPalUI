@@ -7,7 +7,7 @@ import styles from './ItineraryPage.module.scss';
 
 function ItineraryPage() {
   const location = useLocation();
-  const { destination } = location.state || {};
+  const { destination, numOfPeople, dateRange } = location.state || {};
 
   const [loading, setLoading] = useState(true);
 
@@ -17,7 +17,7 @@ function ItineraryPage() {
     }, 2000);
   }, []);
 
-  if (!destination) {
+  if (!destination || !dateRange) {
     return <Navigate to="/" />; // Redirect to the landing page if no destination
   }
 
@@ -29,7 +29,7 @@ function ItineraryPage() {
     <div>
       <div className={styles.Hero}>
         <div className={styles.Title}>{destination.name}</div>
-        <img src={destination.imageUrl} alt={destination.name} />
+        <img src={destination.imageUrl.url1000px} alt={destination.name} />
       </div>
       <div>
         <HotelCarousel />
