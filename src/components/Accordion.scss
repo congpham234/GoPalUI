@@ -8,6 +8,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
+
   & svg {
     width: 24px;
     height: 24px;
@@ -17,6 +19,7 @@
 
 .accordion-content {
   padding-bottom: 1rem;
+
   & img {
     width: 100%;
     height: 180px;
