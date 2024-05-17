@@ -74,7 +74,9 @@ function HotelCarousel(props: HotelCarouselProps) {
           </div>
           <div className="Price">
             <FiDollarSign />
-            <p>{formatPrice(item.suggestedPrice ?? 0)} {item.currency}</p>
+            <p>
+              {formatPrice(item.suggestedPrice ?? 0)} {item.currency}
+            </p>
           </div>
           {item.distanceFromCenter && (
             <div className="Distance">
@@ -86,6 +88,6 @@ function HotelCarousel(props: HotelCarouselProps) {
       ))}
     </Slider>
   );
-};
+}
 
 export default HotelCarousel;

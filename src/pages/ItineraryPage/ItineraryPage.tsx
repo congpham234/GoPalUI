@@ -24,14 +24,15 @@ function ItineraryPage() {
     const fetchData = async () => {
       try {
         if (loading) {
-        const response: GetItineraryResponseContent = await apiClient.getItinerary({
-          destination,
-          numOfPeople,
-          startDate: dateRange[0],
-          endDate: dateRange[1]
-        });
-        setPlacesToStay(response.placesToStay || []);
-        setPlanningDays(response.planningDays || []);
+          const response: GetItineraryResponseContent =
+            await apiClient.getItinerary({
+              destination,
+              numOfPeople,
+              startDate: dateRange[0],
+              endDate: dateRange[1],
+            });
+          setPlacesToStay(response.placesToStay || []);
+          setPlanningDays(response.planningDays || []);
         }
       } catch (error) {
         console.error('Failed to fetch data:', error);
@@ -61,7 +62,7 @@ function ItineraryPage() {
         <img src={destination.imageUrl.url1000px} alt={destination.name} />
       </div>
       <div>
-        <HotelCarousel items={placesToStay}/>
+        <HotelCarousel items={placesToStay} />
       </div>
       <div>
         <Accordion
