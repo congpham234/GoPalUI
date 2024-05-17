@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, Navigate } from 'react-router-dom';
-import Accordion from 'components/Accordion';
 import HotelCarousel from '../../components/HotelCarousel';
 import LoadingComponent from '../../components/LoadingComponent';
 import styles from './ItineraryPage.module.scss';
@@ -15,34 +14,7 @@ function ItineraryPage() {
   const [loading, setLoading] = useState(true);
   const [placesToStay, setPlacesToStay] = useState<PlaceToStay[]>([]);
   const [planningDays, setPlanningDays] = useState<Day[]>([]);
-  const isMounted = useRef(false);
-
-  const accordionData = {
-    heading: 'Day 1: Exploring Manhattan',
-    accordions: [
-      {
-        title: 'Central Park',
-        image:
-          'https://www.civitatis.com/f/pois/ChIJ4zGFAZpYwokRGUGph3Mf37k-m.jpg',
-        content:
-          'Start your day with a leisurely stroll or bike ride in Central Park. You can rent bikes or take a guided tour.',
-      },
-      {
-        title: 'Times Square',
-        image:
-          'https://images.ctfassets.net/1aemqu6a6t65/46MJ6ER585Rwl3NraEIoGL/784c5eb5d87f576b5548b1a2255f08e7/tripadvisortimessquare_taggeryanceyiv_5912?w=1200&h=800&q=75',
-        content:
-          'Head to Times Square to experience the bustling energy of the city, and maybe catch a Broadway show in the evening.',
-      },
-      {
-        title: "Dinner in Hell's Kitchen",
-        image:
-          'https://image.newyorkcity.ca/wp-content/uploads/2014/12/Hells-Kitchen-in-New-York.jpg',
-        content:
-          "End your day with dinner in Hell's Kitchen, known for its diverse dining options.",
-      },
-    ],
-  };
+  const [selectedDay, setSelectedDay] = useState<Day>();
 
   useEffect(() => {
     if (!destination || !dateRange) {
@@ -51,29 +23,28 @@ function ItineraryPage() {
 
     const fetchData = async () => {
       try {
-        if (loading) {
-          const response: GetItineraryResponseContent =
-            await apiClient.getItinerary({
-              destination,
-              numOfPeople,
-              startDate: dateRange[0],
-              endDate: dateRange[1],
-            });
-          setPlacesToStay(response.placesToStay || []);
-          setPlanningDays(response.planningDays || []);
+        const response: GetItineraryResponseContent =
+          await apiClient.getItinerary({
+            destination,
+            numOfPeople,
+            startDate: dateRange[0],
+            endDate: dateRange[1],
+          });
+        setPlacesToStay(response.placesToStay || []);
+        setPlanningDays(response.planningDays || []);
+        if (response.planningDays) {
+          setSelectedDay(response.planningDays[0]);
         }
       } catch (error) {
         console.error('Failed to fetch data:', error);
       } finally {
-        setLoading(false); // Set loading to false after the API call
+        setLoading(false);
       }
     };
 
-    if (!isMounted.current) {
-      fetchData();
-      isMounted.current = true;
-    }
-  }, [placesToStay, planningDays]);
+    setLoading(true);
+    fetchData();
+  }, [destination, dateRange]);
 
   if (!destination || !dateRange) {
     return <Navigate to="/" />; // Redirect to the landing page if no destination
@@ -92,9 +63,7 @@ function ItineraryPage() {
       <div>
         <HotelCarousel items={placesToStay} />
       </div>
-      <div>
-        <DayPlanning data={accordionData} />
-      </div>
+      <div>{selectedDay && <DayPlanning dayDetail={selectedDay} />}</div>
     </div>
   );
 }

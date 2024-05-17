@@ -2,35 +2,43 @@ import React from 'react';
 import Accordion from './Accordion';
 import './DayPlanning.scss';
 
-interface AccordionData {
-  title: string;
-  image?: string;
-  content: string;
+interface ActivityAccordion {
+  activityName: string;
+  location: string;
+  description: string;
+  detail?: ActivityDetail;
+}
+
+interface ActivityDetail {
+  photoUri?: string;
+}
+
+interface DayDetail {
+  dayNumber: number;
+  activities: ActivityAccordion[];
 }
 
 interface DayPlanningProps {
-  data: {
-    heading: string;
-    accordions: AccordionData[];
-  };
+  dayDetail: DayDetail;
 }
 
-const DayPlanning: React.FC<DayPlanningProps> = ({ data }) => {
-  const { heading, accordions } = data;
+function DayPlanning(props: DayPlanningProps) {
+  const { dayDetail } = props;
 
   return (
     <div className="DayPlanning">
-      <h2>{heading}</h2>
-      {accordions.map((accordion, index) => (
+      <h2>Day {dayDetail.dayNumber}: </h2>
+      {dayDetail.activities.map((activity, index) => (
         <Accordion
           key={index}
-          title={accordion.title}
-          image={accordion.image}
-          content={accordion.content}
+          title1={activity.activityName}
+          title2={activity.location}
+          image={activity.detail?.photoUri}
+          content={activity.description}
         />
       ))}
     </div>
   );
-};
+}
 
 export default DayPlanning;

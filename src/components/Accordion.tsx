@@ -4,13 +4,19 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import CustomButton from 'components/CustomButton';
 
 interface AccordionProps {
-  title: string;
+  title1: string;
+  title2: string;
   image?: string;
   content: string;
 }
 
-const Accordion: React.FC<AccordionProps> = ({ title, image, content }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Accordion: React.FC<AccordionProps> = ({
+  title1,
+  title2,
+  image,
+  content,
+}) => {
+  const [isOpen, setIsOpen] = useState(true);
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
@@ -19,11 +25,12 @@ const Accordion: React.FC<AccordionProps> = ({ title, image, content }) => {
   return (
     <div className="accordion">
       <div className="accordion-heading" onClick={toggleAccordion}>
-        <p>{title}</p>
+        <h3>{title1}</h3>
         {isOpen ? <FiChevronUp /> : <FiChevronDown />}
       </div>
       {isOpen && (
         <div className="accordion-content">
+          <h4>{title2}</h4>
           {image && <img src={image} />}
           <p>{content}</p>
           <CustomButton customVariant="secondary">
