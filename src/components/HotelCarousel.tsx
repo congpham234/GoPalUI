@@ -2,7 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import './Carousel.scss';
+import './HotelCarousel.scss';
 import { FiDollarSign } from 'react-icons/fi';
 import { FiMapPin } from 'react-icons/fi';
 import { formatNumberWithCommas, formatPrice } from 'utils/NumberUtils';
@@ -34,7 +34,7 @@ function HotelCarousel(props: HotelCarouselProps) {
     autoplaySpeed: 2000,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1920,
         settings: {
           slidesToShow: 4.2,
           slidesToScroll: 3,
@@ -61,32 +61,35 @@ function HotelCarousel(props: HotelCarouselProps) {
   };
 
   return (
-    <Slider {...settings} className="Carousel">
-      {items.map((item, index) => (
-        <div className="CarouselCard" key={index}>
-          <div className="Photo">
-            <img src={item.imageUrl1024x768} alt={item.name} />
-          </div>
-          <h3>{item.name}</h3>
-          <div className="Review">
-            <div className="Rating">{item.reviewScore}</div>
-            <p>{formatNumberWithCommas(item.reviewCount ?? 0)} reviews</p>
-          </div>
-          <div className="Price">
-            <FiDollarSign />
-            <p>
-              {formatPrice(item.suggestedPrice ?? 0)} {item.currency}
-            </p>
-          </div>
-          {item.distanceFromCenter && (
-            <div className="Distance">
-              <FiMapPin />
-              <p>{item.distanceFromCenter}</p>
+    <div className="WhereToStay">
+      <h2>Where to stay</h2>
+      <Slider {...settings} className="Carousel">
+        {items.map((item, index) => (
+          <div className="CarouselCard" key={index}>
+            <div className="Photo">
+              <img src={item.imageUrl1024x768} alt={item.name} />
             </div>
-          )}
-        </div>
-      ))}
-    </Slider>
+            <h3>{item.name}</h3>
+            <div className="Review">
+              <div className="Rating">{item.reviewScore}</div>
+              <p>{formatNumberWithCommas(item.reviewCount ?? 0)} reviews</p>
+            </div>
+            <div className="Price">
+              <FiDollarSign />
+              <p>
+                {formatPrice(item.suggestedPrice ?? 0)} {item.currency}
+              </p>
+            </div>
+            {item.distanceFromCenter && (
+              <div className="Distance">
+                <FiMapPin />
+                <p>{item.distanceFromCenter}</p>
+              </div>
+            )}
+          </div>
+        ))}
+      </Slider>
+    </div>
   );
 }
 

@@ -6,6 +6,7 @@ import LoadingComponent from '../../components/LoadingComponent';
 import styles from './ItineraryPage.module.scss';
 import apiClient from 'configs';
 import { Day, GetItineraryResponseContent, PlaceToStay } from 'gopalapimodel';
+import DayPlanning from 'components/DayPlanning';
 
 function ItineraryPage() {
   const location = useLocation();
@@ -15,6 +16,33 @@ function ItineraryPage() {
   const [placesToStay, setPlacesToStay] = useState<PlaceToStay[]>([]);
   const [planningDays, setPlanningDays] = useState<Day[]>([]);
   const isMounted = useRef(false);
+
+  const accordionData = {
+    heading: 'Day 1: Exploring Manhattan',
+    accordions: [
+      {
+        title: 'Central Park',
+        image:
+          'https://www.civitatis.com/f/pois/ChIJ4zGFAZpYwokRGUGph3Mf37k-m.jpg',
+        content:
+          'Start your day with a leisurely stroll or bike ride in Central Park. You can rent bikes or take a guided tour.',
+      },
+      {
+        title: 'Times Square',
+        image:
+          'https://images.ctfassets.net/1aemqu6a6t65/46MJ6ER585Rwl3NraEIoGL/784c5eb5d87f576b5548b1a2255f08e7/tripadvisortimessquare_taggeryanceyiv_5912?w=1200&h=800&q=75',
+        content:
+          'Head to Times Square to experience the bustling energy of the city, and maybe catch a Broadway show in the evening.',
+      },
+      {
+        title: "Dinner in Hell's Kitchen",
+        image:
+          'https://image.newyorkcity.ca/wp-content/uploads/2014/12/Hells-Kitchen-in-New-York.jpg',
+        content:
+          "End your day with dinner in Hell's Kitchen, known for its diverse dining options.",
+      },
+    ],
+  };
 
   useEffect(() => {
     if (!destination || !dateRange) {
@@ -65,16 +93,7 @@ function ItineraryPage() {
         <HotelCarousel items={placesToStay} />
       </div>
       <div>
-        <Accordion
-          title="Central Park"
-          image="https://a.cdn-hotels.com/gdcs/production116/d1103/0ffba831-3af6-4ec5-918b-edd67a21480e.jpg"
-          content="Start your day with a leisurely stroll or bike ride in Central Park. You can rent bikes or take a guided tour."
-        />
-        <Accordion
-          title="Times Square"
-          image="https://images.ctfassets.net/1aemqu6a6t65/46MJ6ER585Rwl3NraEIoGL/784c5eb5d87f576b5548b1a2255f08e7/tripadvisortimessquare_taggeryanceyiv_5912?w=1200&h=800&q=75"
-          content="Head to Times Square to experience the bustling energy of the city, and maybe catch a Broadway show in the evening."
-        />
+        <DayPlanning data={accordionData} />
       </div>
     </div>
   );

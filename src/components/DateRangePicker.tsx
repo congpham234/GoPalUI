@@ -1,7 +1,7 @@
 import React from 'react';
 import { DatePicker } from 'antd';
 import { Color } from './Color';
-import './CustomDateRangePicker.scss';
+import './DateRangePicker.scss';
 
 interface DateRangePickerProps {
   onChange: (dates: any | null, dateStrings: [string, string]) => void;
