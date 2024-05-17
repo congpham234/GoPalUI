@@ -1,5 +1,6 @@
 import React from 'react';
 import { DatePicker } from 'antd';
+import dayjs, { Dayjs } from 'dayjs';
 import { Color } from './Color';
 import './DateRangePicker.scss';
 
@@ -9,6 +10,11 @@ interface DateRangePickerProps {
 
 function DateRangePicker(props: DateRangePickerProps) {
   const { RangePicker } = DatePicker;
+
+  // Function to disable dates before today
+  const disabledDate = (current: Dayjs | null): boolean => {
+    return current ? current < dayjs().startOf('day') : false;
+  };
 
   return (
     <RangePicker
@@ -23,6 +29,7 @@ function DateRangePicker(props: DateRangePickerProps) {
         color: Color.dark,
       }}
       onChange={props.onChange}
+      disabledDate={disabledDate}
     />
   );
 }
