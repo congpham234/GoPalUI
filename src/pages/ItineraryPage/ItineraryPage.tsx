@@ -15,7 +15,6 @@ function ItineraryPage() {
   const [loading, setLoading] = useState(true);
   const [placesToStay, setPlacesToStay] = useState<PlaceToStay[]>([]);
   const [planningDays, setPlanningDays] = useState<Day[]>([]);
-  const [selectedDay, setSelectedDay] = useState<Day>();
 
   useEffect(() => {
     if (!destination || !dateRange) {
@@ -33,9 +32,6 @@ function ItineraryPage() {
           });
         setPlacesToStay(response.placesToStay || []);
         setPlanningDays(response.planningDays || []);
-        if (response.planningDays) {
-          setSelectedDay(response.planningDays[0]);
-        }
       } catch (error) {
         console.error('Failed to fetch data:', error);
       } finally {
@@ -46,11 +42,6 @@ function ItineraryPage() {
     setLoading(true);
     fetchData();
   }, [destination, dateRange]);
-
-  const handleDaySelected = (dayNumber: number) => {
-    const selected = planningDays.find((day) => day.dayNumber === dayNumber);
-    setSelectedDay(selected);
-  };
 
   if (!destination || !dateRange) {
     return <Navigate to="/" />; // Redirect to the landing page if no destination
