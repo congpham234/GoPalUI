@@ -6,7 +6,7 @@ import styles from './ItineraryPage.module.scss';
 import apiClient from 'configs';
 import { Day, GetItineraryResponseContent, PlaceToStay } from 'gopalapimodel';
 import DayPlanning from 'components/DayPlanning';
-import Tabs from 'components/Tab'
+import DaySelector from 'components/DaySelector';
 
 function ItineraryPage() {
   const location = useLocation();
@@ -47,6 +47,11 @@ function ItineraryPage() {
     fetchData();
   }, [destination, dateRange]);
 
+  const handleDaySelected = (dayNumber: number) => {
+    const selected = planningDays.find((day) => day.dayNumber === dayNumber);
+    setSelectedDay(selected);
+  };
+
   if (!destination || !dateRange) {
     return <Navigate to="/" />; // Redirect to the landing page if no destination
   }
@@ -62,11 +67,15 @@ function ItineraryPage() {
         <img src={destination.imageUrl.url1000px} alt={destination.name} />
       </div>
       <div>
-        <Tabs />
-        <div id='section1'>
+        <DaySelector days={planningDays} />
+        <div id="section1">
           <HotelCarousel items={placesToStay} />
         </div>
-        <div id='section2'>{selectedDay && <DayPlanning dayDetail={selectedDay} />}</div>
+        {planningDays.map((day, index) => (
+          <div id={`section2-day${index + 1}`} key={index}>
+            <DayPlanning dayDetail={day} />
+          </div>
+        ))}
       </div>
     </div>
   );

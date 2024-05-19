@@ -13,13 +13,15 @@ const NavBar = () => {
 
   return (
     <nav className="navbar">
-      <div className="logo"><img src="/images/GoPal-logo.svg" alt="GoPal Logo" /></div>
+      <div className="logo">
+        <img src="/images/GoPal-logo.svg" alt="GoPal Logo" />
+      </div>
       <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
         <CustomButton customVariant="secondary">Log in</CustomButton>
         <CustomButton customVariant="primary">Sign up</CustomButton>
       </div>
       <div className="menu-icon" onClick={toggleMenu}>
-        <FiMenu/>
+        <FiMenu />
       </div>
     </nav>
   );

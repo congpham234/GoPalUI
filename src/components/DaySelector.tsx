@@ -1,19 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import './Tabs.scss';
+import './DaySelector.scss';
 
-const Tabs: React.FC = () => {
+interface Day {
+  dayNumber: number;
+}
+
+interface DaySelectorProps {
+  days: Day[];
+}
+
+function DaySelector(props: DaySelectorProps) {
+  const { days } = props;
   const [activeTab, setActiveTab] = useState<number>(0);
 
-  const tabs = ['Where to stay', 'Day 1', 'Day 2', 'Day 3'];
-  const sections = ['section1', 'section2', 'section3', 'section4'];
+  const tabs = ['Where to stay', ...days.map((day) => `Day ${day.dayNumber}`)];
+  const sections = [
+    'section1',
+    ...days.map((_, index) => `section2-day${index + 1}`),
+  ];
 
   const scrollToSection = (index: number) => {
     const section = document.getElementById(sections[index]);
     if (section) {
-        const yOffset = -72;
-        const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
+      const yOffset = -72;
+      const y =
+        section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
   };
 
   const handleScroll = () => {
@@ -22,7 +35,10 @@ const Tabs: React.FC = () => {
       const section = document.getElementById(id);
       if (section) {
         const rect = section.getBoundingClientRect();
-        if (rect.top <= window.innerHeight / 4 && rect.bottom >= window.innerHeight / 4) {
+        if (
+          rect.top <= window.innerHeight / 4 &&
+          rect.bottom >= window.innerHeight / 4
+        ) {
           currentActive = index;
         }
       }
@@ -37,7 +53,7 @@ const Tabs: React.FC = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [activeTab]);
+  }, [activeTab, sections]);
 
   return (
     <div className="tabs-container">
@@ -54,6 +70,6 @@ const Tabs: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
-export default Tabs;
+export default DaySelector;
