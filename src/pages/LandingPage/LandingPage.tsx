@@ -1,18 +1,19 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FiMenu } from 'react-icons/fi';
+
 import CustomButton from '../../components/CustomButton';
 import Typography from '../../components/Typography';
-import { FiMenu } from 'react-icons/fi';
-import styles from './LandingPage.module.scss';
 import DateRangePicker from '../../components/DateRangePicker';
 import SearchInput from '../../components/SearchInput';
 import SelectPeople from '../../components/SelectPeople';
+import NavBar from 'components/NavBar';
 
 import { Destination, SearchDestinationResponseContent } from 'gopalapimodel';
 import apiClient from '../../configs';
-import NavBar from 'components/NavBar';
+import styles from './LandingPage.module.scss';
 
-function LandingPage() {
+const LandingPage = () => {
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [selectedDestination, setSelectedDestination] =
     useState<Destination | null>(null);
@@ -22,31 +23,21 @@ function LandingPage() {
 
   const navigate = useNavigate();
 
-  const handleOnSearchDestination = async (
-    value: string
-  ): Promise<Array<{ key: string; imageUrl?: string; title: string }>> => {
-    try {
-      if (!value) return [];
+  const handleOnSearchDestination = async (value: string) => {
+    if (!value) return [];
 
+    try {
       const response: SearchDestinationResponseContent =
         await apiClient.searchDestination(value);
-      const destinations: Array<Destination> = response.destinations ?? [];
-
-      let autoSuggestOptions = [];
-      for (const destination of destinations) {
-        if (destination.imageUrl) {
-          const title = destination.label;
-
-          autoSuggestOptions.push({
-            key: destination.destId,
-            imageUrl: destination.imageUrl.url150px,
-            title: title,
-          });
-        }
-      }
+      const destinations = response.destinations || [];
 
       setDestinations(destinations);
-      return autoSuggestOptions;
+
+      return destinations.map((dest) => ({
+        key: dest.destId,
+        imageUrl: dest.imageUrl?.url150px,
+        title: dest.label,
+      }));
     } catch (error) {
       console.error('Failed to fetch search result:', error);
       return [];
@@ -80,7 +71,7 @@ function LandingPage() {
   };
 
   const handleOnSelectNumPeople = (value: string) => {
-    selectedNumPeople.current = parseInt(value);
+    selectedNumPeople.current = parseInt(value, 10);
   };
 
   return (
@@ -91,13 +82,10 @@ function LandingPage() {
           <FiMenu />
         </div>
       </div> */}
-      <div>
-        <NavBar />
-      </div>
-
+      <NavBar />
       <div className={styles.Hero}>
         <img src="/images/GoPal-star.jpeg" alt="GoPal Star" />
-        <Typography variant="h2"> Your AI Trip Assistant </Typography>
+        <Typography variant="h2">Your AI Trip Assistant</Typography>
       </div>
       <div className={styles.InputSection}>
         <Typography variant="h3">Start planning your trip</Typography>
@@ -114,6 +102,6 @@ function LandingPage() {
       </div>
     </div>
   );
-}
+};
 
 export default LandingPage;
