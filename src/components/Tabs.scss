@@ -1,0 +1,37 @@
+.tabs-container {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 1000;
+  // border-bottom: 2px solid #ccc;
+}
+
+.tabs {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 1rem 0rem 1rem 1rem;
+}
+
+.tabs button {
+  flex: 0 0 auto;
+  height: 2.5rem;
+  margin-right: 0.5rem;
+  padding: 0rem 1rem;
+  border: 1px solid lightgrey;
+  border-radius: 2.5rem;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: 'Poppins';
+  font-size: 1rem;
+}
+
+.tabs button.active {
+  border: 1px solid black;
+}
+
+// .tabs button:hover {
+//   background-color: #ddd;
+// }

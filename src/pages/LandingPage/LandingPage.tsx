@@ -10,6 +10,7 @@ import SelectPeople from '../../components/SelectPeople';
 
 import { Destination, SearchDestinationResponseContent } from 'gopalapimodel';
 import apiClient from '../../configs';
+import NavBar from 'components/NavBar';
 
 function LandingPage() {
   const [destinations, setDestinations] = useState<Destination[]>([]);
@@ -90,11 +91,14 @@ function LandingPage() {
 
   return (
     <div className={styles.LandingPage}>
-      <div className={styles.NavBar}>
+      {/* <div className={styles.NavBar}>
         <img src="/images/GoPal-logo.svg" alt="GoPal Logo" />
         <div className={styles.Icon2rem}>
           <FiMenu />
         </div>
+      </div> */}
+      <div>
+        <NavBar />
       </div>
 
       <div className={styles.Hero}>

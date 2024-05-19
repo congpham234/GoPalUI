@@ -6,6 +6,7 @@ import styles from './ItineraryPage.module.scss';
 import apiClient from 'configs';
 import { Day, GetItineraryResponseContent, PlaceToStay } from 'gopalapimodel';
 import DayPlanning from 'components/DayPlanning';
+import Tabs from 'components/Tab'
 
 function ItineraryPage() {
   const location = useLocation();
@@ -61,9 +62,12 @@ function ItineraryPage() {
         <img src={destination.imageUrl.url1000px} alt={destination.name} />
       </div>
       <div>
-        <HotelCarousel items={placesToStay} />
+        <Tabs />
+        <div id='section1'>
+          <HotelCarousel items={placesToStay} />
+        </div>
+        <div id='section2'>{selectedDay && <DayPlanning dayDetail={selectedDay} />}</div>
       </div>
-      <div>{selectedDay && <DayPlanning dayDetail={selectedDay} />}</div>
     </div>
   );
 }
