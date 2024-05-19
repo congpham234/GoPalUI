@@ -35,13 +35,7 @@ function LandingPage() {
       let autoSuggestOptions = [];
       for (const destination of destinations) {
         if (destination.imageUrl) {
-          const title = [
-            destination.name,
-            destination.cityName,
-            destination.country,
-          ]
-            .filter(Boolean)
-            .join(', ');
+          const title = destination.label;
 
           autoSuggestOptions.push({
             key: destination.destId,
