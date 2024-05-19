@@ -15,8 +15,8 @@ import styles from './LandingPage.module.scss';
 
 const LandingPage = () => {
   const [destinations, setDestinations] = useState<Destination[]>([]);
-  const [selectedDestination, setSelectedDestination] =
-    useState<Destination | null>(null);
+  const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
+  const [warning, setWarning] = useState<string | null>(null);
 
   const selectedNumPeople = useRef<number>(1);
   const selectedDateRange = useRef<string[]>([]);
@@ -27,8 +27,7 @@ const LandingPage = () => {
     if (!value) return [];
 
     try {
-      const response: SearchDestinationResponseContent =
-        await apiClient.searchDestination(value);
+      const response: SearchDestinationResponseContent = await apiClient.searchDestination(value);
       const destinations = response.destinations || [];
 
       setDestinations(destinations);
@@ -45,29 +44,37 @@ const LandingPage = () => {
   };
 
   const handleOnSelectDestination = (destinationKey: string) => {
-    const destination = destinations.find(
-      (dest) => dest.destId === destinationKey
-    );
+    const destination = destinations.find((dest) => dest.destId === destinationKey);
     setSelectedDestination(destination || null);
   };
 
-  const handleOnDateRangeSelected = (
-    dates: string[] | null,
-    dateStrings: [string, string]
-  ) => {
+  const handleOnDateRangeSelected = (dates: string[] | null, dateStrings: [string, string]) => {
     selectedDateRange.current = dateStrings;
   };
 
   const handlePlanMyTrip = () => {
-    if (selectedDestination && selectedDateRange) {
-      navigate('/itinerary', {
-        state: {
-          destination: selectedDestination,
-          numOfPeople: selectedNumPeople.current,
-          dateRange: selectedDateRange.current,
-        },
-      });
+    if (!selectedDestination) {
+      setWarning('Please select a destination from the dropdown.');
+      return;
     }
+
+    const startDate = new Date(selectedDateRange.current[0]);
+    const endDate = new Date(selectedDateRange.current[1]);
+    const dateDifference = (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24);
+
+    if (dateDifference > 5) {
+      setWarning('The date range should not be more than 5 days.');
+      return;
+    }
+
+    setWarning(null);
+    navigate('/itinerary', {
+      state: {
+        destination: selectedDestination,
+        numOfPeople: selectedNumPeople.current,
+        dateRange: selectedDateRange.current,
+      },
+    });
   };
 
   const handleOnSelectNumPeople = (value: string) => {
@@ -76,12 +83,6 @@ const LandingPage = () => {
 
   return (
     <div className={styles.LandingPage}>
-      {/* <div className={styles.NavBar}>
-        <img src="/images/GoPal-logo.svg" alt="GoPal Logo" />
-        <div className={styles.Icon2rem}>
-          <FiMenu />
-        </div>
-      </div> */}
       <NavBar />
       <div className={styles.Hero}>
         <img src="/images/GoPal-star.jpeg" alt="GoPal Star" />
@@ -96,6 +97,7 @@ const LandingPage = () => {
         />
         <DateRangePicker onChange={handleOnDateRangeSelected} />
         <SelectPeople onSelect={handleOnSelectNumPeople} />
+        {warning && <div className={styles.Warning}>{warning}</div>}
         <CustomButton customVariant="primary" onClick={handlePlanMyTrip}>
           Plan My Trip
         </CustomButton>
