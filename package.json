@@ -40,7 +40,6 @@
     "lint": "eslint .",
     "prettify": "prettier --write .",
     "format": "npm run prettify && npm run lint -- --fix",
-    "prebuild": "npm run format",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
