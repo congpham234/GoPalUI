@@ -10,10 +10,11 @@ const Tabs: React.FC = () => {
   const scrollToSection = (index: number) => {
     const section = document.getElementById(sections[index]);
     if (section) {
-        const yOffset = -72;
-        const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
+      const yOffset = -72;
+      const y =
+        section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
   };
 
   const handleScroll = () => {
@@ -22,7 +23,10 @@ const Tabs: React.FC = () => {
       const section = document.getElementById(id);
       if (section) {
         const rect = section.getBoundingClientRect();
-        if (rect.top <= window.innerHeight / 4 && rect.bottom >= window.innerHeight / 4) {
+        if (
+          rect.top <= window.innerHeight / 4 &&
+          rect.bottom >= window.innerHeight / 4
+        ) {
           currentActive = index;
         }
       }
