@@ -30,12 +30,16 @@ const Accordion: React.FC<AccordionProps> = ({
       </div>
       {isOpen && (
         <div className="accordion-content">
-          <h4>{title2}</h4>
-          {image && <img src={image} />}
-          <p>{content}</p>
-          <CustomButton customVariant="secondary">
-            Find guided tour
-          </CustomButton>
+          {/* <h4>{title2}</h4> */}
+          <div className="detail-image">{image && <img src={image} />}</div>
+          <div className="detail-content">
+            <p>{content}</p>
+            <div className="button">
+              <CustomButton customVariant="secondary">
+                Find guided tour
+              </CustomButton>
+            </div>
+          </div>
         </div>
       )}
     </div>

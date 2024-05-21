@@ -1,3 +1,8 @@
+.ItineraryPage {
+  padding-top: 5rem;
+  width: 100vw;
+}
+
 .Hero {
   position: relative;
   width: 100%;
@@ -26,4 +31,27 @@
   width: 100%;
   height: 50%;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+}
+
+@media (min-width: 768px) {
+  .ItineraryPage {
+    width: 80vw;
+    margin: 0 auto;
+  }
+  .Hero {
+    height: 240px;
+    & img {
+      border-radius: 1rem;
+    }
+  }
+  .Hero::before {
+    border-radius: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ItineraryPage {
+    width: 1024px;
+    margin: 0 auto;
+  }
 }
