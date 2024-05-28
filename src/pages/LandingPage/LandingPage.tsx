@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../components/CustomButton';
 import Typography from '../../components/Typography';
-import { FiMenu } from 'react-icons/fi';
 import styles from './LandingPage.module.scss';
 import DateRangePicker from '../../components/DateRangePicker';
 import SearchInput from '../../components/SearchInput';

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import CustomButton from './CustomButton';
 import './NavBar.scss';
+import SignInWithGoogleButton from './SignInWithGoogleButton';
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,6 +20,7 @@ const NavBar = () => {
         <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
           <CustomButton customVariant="primary">Sign up</CustomButton>
           <CustomButton customVariant="secondary">Log in</CustomButton>
+          <SignInWithGoogleButton />
         </div>
         <div className="menu-icon" onClick={toggleMenu}>
           ☰
