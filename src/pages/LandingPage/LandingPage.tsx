@@ -13,6 +13,7 @@ import NavBar from 'components/NavBar';
 
 function LandingPage() {
   const [destinations, setDestinations] = useState<Destination[]>([]);
+  const [warning, setWarning] = useState<string | null>(null);
   const [selectedDestination, setSelectedDestination] =
     useState<Destination | null>(null);
 
@@ -72,11 +73,53 @@ function LandingPage() {
     selectedDateRange.current = dateStrings;
   };
 
+  const validateDateRange = () => {
+    if (selectedDateRange.current.length < 2) {
+      setWarning('Please select a valid date range.');
+      return false;
+    }
+
+    const [startDate, endDate] = selectedDateRange.current;
+    const dateDifference =
+      (new Date(endDate).getTime() - new Date(startDate).getTime()) /
+      (1000 * 3600 * 24);
+
+    if (dateDifference > 5) {
+      setWarning('The date range should not be more than 5 days.');
+      return false;
+    }
+
+    if (!startDate || !endDate) {
+      setWarning('Please select valid date');
+      return false;
+    }
+
+    if (startDate === endDate) {
+      setWarning('Please select 2 different days');
+      return false;
+    }
+
+    setWarning(null);
+    return true;
+  };
+
   const handlePlanMyTrip = () => {
-    if (selectedDestination && selectedDateRange) {
+    const destination = selectedDestination ?? destinations.at(0) ?? null;
+
+    if (!destination) {
+      setWarning('Please select a destination from the dropdown.');
+      return;
+    }
+
+    if (!validateDateRange()) {
+      return;
+    }
+
+    setWarning(null);
+    if (selectedDateRange) {
       navigate('/itinerary', {
         state: {
-          destination: selectedDestination,
+          destination: destination,
           numOfPeople: selectedNumPeople.current,
           dateRange: selectedDateRange.current,
         },
@@ -106,6 +149,7 @@ function LandingPage() {
         />
         <DateRangePicker onChange={handleOnDateRangeSelected} />
         <SelectPeople onSelect={handleOnSelectNumPeople} />
+        {warning && <div className={styles.Warning}>{warning}</div>}
         <CustomButton customVariant="primary" onClick={handlePlanMyTrip}>
           Plan My Trip
         </CustomButton>
