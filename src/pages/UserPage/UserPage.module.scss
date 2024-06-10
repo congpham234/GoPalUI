@@ -1,0 +1,17 @@
+.UserPage {
+    margin: 80px 16px;
+}
+
+.Profile {
+    padding: 0.75rem 0rem;
+    & img {
+        border-radius: 99px;
+    }
+}
+
+.List {
+    padding: 0.75rem 0rem;
+    & img {
+        border-radius: 0.5rem;
+    }
+}
