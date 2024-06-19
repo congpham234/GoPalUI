@@ -1,4 +1,6 @@
-.WhereToStay h2 {
+@import '../index.scss';
+
+.WhereToStay h4 {
   margin: 1rem 1rem 0.75rem 1rem;
 }
 
@@ -9,7 +11,6 @@
 }
 
 .CarouselCard {
-  // border: 1px solid red;
   margin-right: 2rem;
   width: 80vw;
   > * {
@@ -19,7 +20,7 @@
 
 .Photo {
   width: 95%;
-  height: 140px;
+  height: 10rem;
   margin: 0rem 1rem 0.5rem 1rem;
   img {
     width: 100%;
@@ -40,8 +41,9 @@
 .Rating {
   padding: 0.25rem 0.375rem;
   border-radius: 0.375rem;
-  background-color: #15803d;
-  color: #fff;
+  background-color: $success;
+  font-family: $font-family;
+  color: $light;
 }
 
 .Price {

@@ -1,0 +1,91 @@
+// Colors
+$primary: #000000;
+$secondary: #6c757d;
+$success: #15803d;
+$danger: #be123c;
+$warning: #f59e0b;
+$info: #0284c7;
+$focus: #b91c1c;
+$border: #C5C5D1;
+$light: #ffffff;
+$lightGrey: #E9EAED;
+$grey: #64748b;
+$dark: #020617;
+
+// Typography
+$font-family: 'Poppins';
+
+body {
+  margin: 0;
+  color: $dark;
+}
+
+h1 {
+  font-size: 1.8rem;
+  line-height: 1.5;
+  font-weight: 600;
+  font-family: $font-family;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.375rem;
+  line-height: 1.5;
+  font-weight: 600;
+  font-family: $font-family;
+  margin: 0;
+}
+
+h3 {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  font-weight: 400;
+  font-family: $font-family;
+  margin: 0;
+}
+
+h4 {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  font-weight: 600;
+  font-family: $font-family;
+  margin: 0;
+}
+
+h5 {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    font-weight: 400;
+    font-family: $font-family;
+    margin: 0;
+  }
+
+b {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
+  font-family: $font-family;
+  margin: 0;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
+  font-family: $font-family;
+  margin: 0;
+}
+
+caption {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  font-weight: 400;
+  font-family: $font-family;
+  margin: 0;
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

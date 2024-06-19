@@ -25,12 +25,11 @@ const Accordion: React.FC<AccordionProps> = ({
   return (
     <div className="accordion">
       <div className="accordion-heading" onClick={toggleAccordion}>
-        <h3>{title1}</h3>
+        <b>{title1}</b>
         {isOpen ? <FiChevronUp /> : <FiChevronDown />}
       </div>
       {isOpen && (
         <div className="accordion-content">
-          {/* <h4>{title2}</h4> */}
           <div className="detail-image">{image && <img src={image} />}</div>
           <div className="detail-content">
             <p>{content}</p>

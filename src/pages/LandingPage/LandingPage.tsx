@@ -150,6 +150,7 @@ function LandingPage() {
         <DateRangePicker onChange={handleOnDateRangeSelected} />
         <SelectPeople onSelect={handleOnSelectNumPeople} />
         {warning && <div className={styles.Warning}>{warning}</div>}
+        
         <CustomButton customVariant="primary" onClick={handlePlanMyTrip}>
           Plan My Trip
         </CustomButton>

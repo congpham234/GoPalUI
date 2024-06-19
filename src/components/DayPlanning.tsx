@@ -27,7 +27,7 @@ function DayPlanning(props: DayPlanningProps) {
 
   return (
     <div className="DayPlanning">
-      <h2>Day {dayDetail.dayNumber}: </h2>
+      <h4>Day {dayDetail.dayNumber} </h4>
       {dayDetail.activities.map((activity, index) => (
         <Accordion
           key={index}

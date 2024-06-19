@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
 import Button, { ButtonProps } from '@mui/material/Button';
-import Typography from './Typography';
-import { Color } from './Color';
+// import Typography from './Typography';
+import './CustomButton.scss'; // Import the SCSS file
 
 interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
   children: ReactNode;
-  customVariant?: 'primary' | 'secondary' | 'tertiary'; // Custom variant types
+  customVariant?: 'primary' | 'secondary' | 'tertiary' | 'link'; // Custom variant types
   borderRadius?: number; // Define prop for border radius
   borderWidth?: number; // Define prop for border width
   borderColor?: string; // Define prop for border color
@@ -19,54 +19,27 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   customVariant,
   borderRadius = 99,
   borderWidth = '0.0625rem',
-  borderColor = '#020617',
   textTransform = 'none',
   height = '3rem',
-  width = '100%',
+  
   ...props
 }) => {
-  let buttonStyle = {};
-
-  if (customVariant) {
-    switch (customVariant) {
-      case 'primary':
-        buttonStyle = { backgroundColor: Color.dark, color: Color.light };
-        break;
-      case 'secondary':
-        buttonStyle = {
-          backgroundColor: Color.light,
-          color: Color.dark,
-          borderColor: Color.grey,
-        };
-        break;
-      case 'tertiary':
-        buttonStyle = {
-          backgroundColor: Color.lightGrey,
-          color: Color.dark,
-          borderColor: Color.lightGrey,
-        };
-        break;
-      default:
-        buttonStyle = {};
-    }
-  }
+  // Assign base class and variant-specific class
+  const buttonClasses = ['custom-button', customVariant].filter(Boolean).join(' ');
 
   return (
     <Button
       variant="outlined" // Use the outlined variant to make the border visible
+      className={buttonClasses} // Use CSS classes instead of inline styles
       style={{
         borderRadius,
         borderWidth,
-        borderColor,
-        boxShadow: 'none',
         textTransform,
         height,
-        width,
-        ...buttonStyle,
       }}
       {...props}
     >
-      <Typography variant="body">{children}</Typography>
+      <p>{children}</p>
     </Button>
   );
 };

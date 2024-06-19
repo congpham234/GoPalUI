@@ -1,4 +1,6 @@
 /* LoadingComponent.module.scss */
+@import '../index.scss';
+
 .loadingContainer {
   display: flex;
   flex-direction: column;
@@ -15,6 +17,7 @@
   align-items: center;
   font-size: 20px;
   margin-top: 20px;
+  font-family:  $font-family;
 }
 
 .loadingText span {

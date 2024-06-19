@@ -18,9 +18,9 @@ const NavBar = () => {
           <img src="/images/GoPal-logo.svg" alt="GoPal logo" />
         </div>
         <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
-          <CustomButton customVariant="primary">Sign up</CustomButton>
+          {/* <CustomButton customVariant="primary">Sign up</CustomButton> */}
           <CustomButton customVariant="secondary">Log in</CustomButton>
-          <SignInWithGoogleButton />
+          {/* <SignInWithGoogleButton /> */}
         </div>
         <div className="menu-icon" onClick={toggleMenu}>
           ☰

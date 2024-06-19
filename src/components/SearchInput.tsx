@@ -94,8 +94,7 @@ function SearchInput(props: SearchInputProps) {
         style={{
           height: '3rem',
           borderRadius: '3rem',
-          borderColor: Color.border,
-          fontFamily: 'Poppins',
+          // borderColor: Color.border,
           fontSize: '1rem',
           color: Color.dark,
         }}

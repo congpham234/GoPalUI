@@ -1,5 +1,12 @@
+@import '../index.scss';
+
 .ant-input-affix-wrapper .ant-input-prefix {
   margin-inline-end: 8px;
+  font-family: $font-family;
+}
+
+.ant-input {
+  font-family: $font-family;
 }
 
 .AutoCompleteOptions {

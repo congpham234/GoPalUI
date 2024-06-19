@@ -8,6 +8,8 @@ import styles from './ItineraryPage.module.scss';
 import apiClient from 'configs';
 import { Day, GetItineraryResponseContent, PlaceToStay } from 'gopalapimodel';
 import NavBar from 'components/NavBar';
+import CustomButton from 'components/CustomButton';
+import Modal from 'components/Modal';
 
 const ItineraryPage = () => {
   const { state } = useLocation();
@@ -16,6 +18,22 @@ const ItineraryPage = () => {
   const [loading, setLoading] = useState(true);
   const [placesToStay, setPlacesToStay] = useState<PlaceToStay[]>([]);
   const [planningDays, setPlanningDays] = useState<Day[]>([]);
+  // const [isSaveButtonClick, setIsSaveButtonClick] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handlePrimaryAction = () => {
+    console.log("Primary action executed.");
+    setIsModalOpen(false);
+  };
+
+  const handleSecondaryAction = () => {
+    console.log("Secondary action executed.");
+    setIsModalOpen(false);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     if (!destination || !dateRange) return;
@@ -56,10 +74,30 @@ const ItineraryPage = () => {
         <NavBar />
       </div>
       <div className={styles.Hero}>
-        <div className={styles.Title}>{destination.name}</div>
+        <div className={styles.Title}><h1>{destination.name}</h1></div>
         <img src={destination.imageUrl.url1000px} alt={destination.name} />
       </div>
       <DaySelector days={planningDays} />
+      <div className={styles.BottomBar}>
+        <div className={styles.ButtonBottomBar}>
+        <CustomButton customVariant="primary" onClick={() => setIsModalOpen(true)} >
+            Save plan
+        </CustomButton>
+        </div>
+      </div>
+      {isModalOpen && (
+      <Modal
+      title=""
+      image="/images/GoPal-save.jpeg"
+      content="Please log in to save your plan"
+      primaryactiontitle="Log in with Google"
+      secondaryactiontitle="Cancel"
+      isDisabled={false}
+      primaryaction={handlePrimaryAction}
+      secondaryaction={handleSecondaryAction}
+      onClose={handleCloseModal}
+      />
+      )}
       <div id="section1">
         <HotelCarousel items={placesToStay} />
       </div>

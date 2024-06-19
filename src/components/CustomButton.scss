@@ -1,0 +1,54 @@
+// CustomButton.scss
+@import '../index.scss';
+
+.custom-button {
+    border-radius: 99px;
+    border-width: 0.0625rem;
+    border-color: $dark;
+    box-shadow: none;
+    text-transform: none;
+    height: 3rem;
+    width: 100%;
+    
+    &.primary {
+      background-color: $dark;
+      color: $light;
+      &:hover {
+        background-color: $dark;
+        color: $light;
+      }
+    }
+  
+    &.secondary {
+      background-color: $light;
+      color: $dark;
+      border-color: $grey;
+      &:hover {
+        background-color: $light;
+        color: $dark;
+        border-color: $grey;
+      }
+    }
+  
+    &.tertiary {
+      background-color: $lightGrey;
+      color: $dark;
+      border-color: $lightGrey;
+      &:hover {
+        background-color: $lightGrey;
+        color: $dark;
+        border-color: $lightGrey;
+      }
+    }
+  
+    &.link {
+      background-color: $light;
+      color: $dark;
+      border-color: $light;
+      &:hover {
+        background-color:$light;
+        color: $dark;
+        border-color: $light;
+      }
+    }
+  }

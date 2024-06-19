@@ -1,12 +1,11 @@
+@import '../index.scss';
+
 .tabs-container {
-  position: -webkit-sticky; /* For Safari */
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
-  // background-color: #ffffff;
-  background-color: rgb(255, 255, 255);
-  // border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+  background-color: $light;
   z-index: 1000;
-  // border-bottom: 2px solid #ccc;
 }
 
 .tabs {
@@ -21,19 +20,27 @@
   height: 2.5rem;
   margin-right: 0.5rem;
   padding: 0rem 1rem;
-  border: 1px solid rgb(172, 172, 172);
+  border: 0.0625rem solid $lightGrey;
   border-radius: 2.5rem;
   background-color: transparent;
   cursor: pointer;
   transition: background-color 0.3s;
-  font-family: 'Poppins';
+  font-family: $font-family;
   font-size: 1rem;
+  color: $dark;
+  &:hover {
+    background-color: transparent;
+    border: 0.0625rem solid $lightGrey;
+  }
 }
 
 .tabs button.active {
-  border: 1.5px solid black;
+  border: 1px solid $dark;
+  &:hover {
+    background-color: transparent;
+    border: 2px solid $dark;
 }
-
+}
 // .tabs button:hover {
 //   background-color: #ddd;
 // }

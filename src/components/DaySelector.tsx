@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './DaySelector.scss';
+import CustomButton from './CustomButton';
 
 interface Day {
   dayNumber: number;
@@ -59,13 +60,13 @@ function DaySelector(props: DaySelectorProps) {
     <div className="tabs-container">
       <div className="tabs">
         {tabs.map((tab, index) => (
-          <button
+          <CustomButton
             key={index}
             className={activeTab === index ? 'active' : ''}
             onClick={() => scrollToSection(index)}
           >
             {tab}
-          </button>
+          </CustomButton>
         ))}
       </div>
     </div>

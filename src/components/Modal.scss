@@ -1,0 +1,110 @@
+.modal-overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark background with transparency */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top of other elements */
+    opacity: 0;
+    animation: fadeIn 0.3s forwards; /* Fade-in effect for overlay */
+  }
+  
+  .modal {
+    position: fixed;
+    bottom: 0;
+    width: calc(100vw - 2rem);
+    max-width: none;
+    border-radius: 1rem 1rem 0rem 0rem;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 1rem 1rem 1rem 1rem;
+    z-index: 1001; /* Ensure it's above the overlay */
+    transform: translateY(100%);
+    animation: slideUp 0.3s forwards; /* Slide-up effect for modal */
+    transition: transform 0.3s ease-out; /* Add transition for slide down */
+  }
+  
+  .modal-close {
+    animation: slideDown 0.3s forwards; /* Slide-down effect for modal close */
+  }
+  
+  .modal svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  
+  .modal-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .modal-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .modal-content {
+    width: 100%;
+    padding-top: 1rem;
+    text-align: center;
+  }
+  
+  .modal-content > Button {
+    margin-top: 1rem;
+  }
+  
+  /* Media query for larger devices */
+  @media (min-width: 768px) {
+    .modal {
+      position: relative;
+      max-width: 500px; /* Set your desired max-width */
+      height: auto;
+      border-radius: 1rem;
+      padding: 20px 2rem 2rem 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add some shadow for larger screens */
+    }
+  }
+  
+  /* Keyframes for fade-in effect */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Keyframes for slide-up effect */
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+  /* Keyframes for slide-down effect */
+  @keyframes slideDown {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(100%);
+    }
+  }
+  

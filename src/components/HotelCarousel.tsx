@@ -62,23 +62,23 @@ function HotelCarousel(props: HotelCarouselProps) {
 
   return (
     <div className="WhereToStay">
-      <h2>Where to stay</h2>
+      <h4>Where to stay</h4>
       <Slider {...settings} className="Carousel">
         {items.map((item, index) => (
           <div className="CarouselCard" key={index}>
             <div className="Photo">
               <img src={item.imageUrl1024x768} alt={item.name} />
             </div>
-            <h3>{item.name}</h3>
+            <div><b>{item.name}</b></div>
             <div className="Review">
-              <div className="Rating">{item.reviewScore}</div>
-              <p>{formatNumberWithCommas(item.reviewCount ?? 0)} reviews</p>
+              <div className="Rating"><h5>{item.reviewScore}</h5></div>
+              <h5>{formatNumberWithCommas(item.reviewCount ?? 0)} reviews</h5>
             </div>
             <div className="Price">
               <FiDollarSign />
-              <p>
+              <h5>
                 {formatPrice(item.suggestedPrice ?? 0)} {item.currency}
-              </p>
+              </h5>
             </div>
             {item.distanceFromCenter && (
               <div className="Distance">

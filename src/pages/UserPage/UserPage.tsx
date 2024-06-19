@@ -3,6 +3,8 @@ import NavBar from 'components/NavBar';
 import styles from './UserPage.module.scss';
 import Typography from '../../components/Typography';
 import Item from 'components/Item';
+import CustomButton from 'components/CustomButton';
+import { FiChevronRight } from "react-icons/fi";
 
 function UserPage() {
   return (
@@ -21,7 +23,7 @@ function UserPage() {
         />
       </div>
       <div>
-        <Typography variant="bodyBold">Saved Plan</Typography>
+        <Typography variant="bodyBold">Saved plan</Typography>
         <div className={styles.List}>
           <Item
           title='New York'
@@ -37,6 +39,17 @@ function UserPage() {
           content2='4 people'
           isMenuEnabled= {true}
         />
+        </div>
+      </div>
+      <div>
+        <Typography variant="bodyBold">Account settings</Typography>
+        <div className={styles.Link}>
+          <p>Email alerts and notifications</p>
+          <FiChevronRight />
+        </div>
+        <div className={styles.Link}>
+          <p>Sign out</p>
+          <FiChevronRight />
         </div>
       </div>
     </div>
